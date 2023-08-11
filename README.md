@@ -142,8 +142,21 @@
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259989919-6f82469d-fa79-410f-8efa-70868413cc28.png">
 </p>
 
-<a name = "adminaccount"></a>
-<h1>12. ACCOUNT MANAGEMENT<h1>
+<a name = "admincoupon"></a>
+<h1>15. COUPON MANAGEMENT<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231946905-6eb81988-cbd2-4650-9e79-66a8dd9dd9ce.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259990157-52400f6d-0b11-4b71-a814-3472d9213184.png">
 </p>
+
+<a name = "feedbackwebsite"></a>
+<h1>16. FEEDBACK WEBSITE<h1>
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259990556-22988f1a-754f-433c-86f4-d01dafc126c0.png">
+</p>
+
+<a name = "revenue"></a>
+<h1>17. REVENUE STATISTICAL<h1>
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259990923-1ba9833f-c25b-4e4a-b42f-b5ebb69fd5a4.png">
+</p>
+
