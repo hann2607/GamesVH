@@ -41,7 +41,7 @@
 <a name = "homepage"></a>
 <h1>2. HOMEPAGE<h1>
 <p align="center">
-  <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259982346-151069fe-4ba0-455b-a007-d339239d85a0.png">
+  <img src=https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259985271-175084bf-56be-497b-902f-c0c41f0e2c0a.png">
 </p>
 
 <a name = "account"></a>
