@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="400px" src="https://user-images.githubusercontent.com/117273434/231943805-fe740806-6ab2-4003-8b15-4c25a97fbfe7.png">
+  <img width="400px" src="https://github.com/hann2607/GamesVH/blob/main/DATN_GameVH_FE/site/assets/images/demos/demo-3/logo3.png">
 </p>
 
 <h2>TABLE OF CONTENTS<h2>
