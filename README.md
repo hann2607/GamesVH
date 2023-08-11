@@ -65,13 +65,13 @@
 <a name = "shop"></a>
 <h1>5. SHOP<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231944137-8b8bbb3f-1e4f-4ac0-a8cc-5545f9401bb6.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259984803-d4ae1245-db04-43db-8a4b-04d005c46891.png">
 </p>
 
 <a name = "detailsproduct"></a>
-<h1>5. DETAILS PRODUCT<h1>
+<h1>6. DETAILS PRODUCT<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231944199-568d8b72-8380-4fd4-a172-0b17b624c224.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259984958-a4342282-9c58-4dda-98ac-9f0fe9227778.png">
 </p>
   
   <a name = "cart"></a>
