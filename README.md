@@ -125,6 +125,12 @@
 <p align="center">
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259989128-fa9d70fc-24b6-4a19-9196-430a7821fdcc.png">
 </p>
+  
+<h1>13.1 PRODUCT FEEDBACK<h1>
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259989329-05ac0350-4579-43fc-accb-9c0ab01b1a38.png">
+</p>
+
 
 <a name = "adminaccount"></a>
 <h1>12. ACCOUNT MANAGEMENT<h1>
