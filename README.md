@@ -42,6 +42,30 @@
 <h1>DESCRIPTION<h1>
 This project establishes a high-quality e-commerce website, specifically geared towards the gaming community, offering Vietnameseized version for the game and essential accessories. The project architecture follows an API Driven model, utilizing AngularJS and Bootstrap 4 for a smooth user interface. On the backend, the project leverages Spring Boot RESTFul API, ensuring robust and flexible integration.
 
+-	Download JDK SE17:
+http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+-	Download Eclipse IDE 4.28.0:
+http://www.eclipse.org/downloads/eclipse-packages/
+  
+-	Download Lombok v1.18.28:
+https://projectlombok.org/
+
+-	Download MySQL Workbench 8.0.33:
+ https://dev.mysql.com/downloads/workbench/
+
+-	Download STS 4:
+⮚	Help (Eclipse) => Eclipse Marketplace => Find: STS
+⮚	Spring Tools 4 (aka Spring Tool Suite 4) 4.17.2.RELEASE
+
+-	Download Visual Studio Code 1.81.0:
+ https://code.visualstudio.com/download
+
+-	Download NodeJS 18.17.0:
+https://nodejs.org/en/download
+
+- AngularJS: 1.8.3
+
   
 <a name = "login"></a>
 <h1>1. SIGNIN/SIGNUP<h1>
