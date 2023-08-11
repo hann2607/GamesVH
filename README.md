@@ -103,15 +103,15 @@
 </p>
 
 <a name = "aboutus"></a>
-<h1>8. ABOUT US<h1>
+<h1>9. ABOUT US<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231945002-14ba6904-3059-44ab-8b35-53a33f371e23.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259987687-f4186537-f262-4fb1-b74f-3f7c9820ea30.png">
 </p>
 
 <a name = "contact"></a>
-<h1>9. CONTACT<h1>
+<h1>10. CONTACT<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231945116-4d2f13d3-6b26-4917-9f9e-c1936dec28c3.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259987797-527f1f1a-a22e-43e9-a882-316b3a934a74.png">
 </p>
 
 <a name = "adminorder"></a>
