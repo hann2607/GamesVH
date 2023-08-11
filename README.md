@@ -91,6 +91,17 @@
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259986655-3385d2ab-782f-4ba2-b222-ed89811b3253.png">
 </p>
 
+<a name = "blog"></a>
+<h1>8. BLOG<h1>
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259987049-426e92b9-2583-4c95-a374-abe7b61a301f.png">
+</p>
+
+<h1>8.1 BLOG DETAIL<h1>
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259987420-deb94e26-fd8d-45d4-9f6e-72208c93cc39.png">
+</p>
+
 <a name = "aboutus"></a>
 <h1>8. ABOUT US<h1>
 <p align="center">
