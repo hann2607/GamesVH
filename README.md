@@ -86,38 +86,38 @@
 </p>
 
 <a name = "checkout"></a>
-<h1>7. CHECKOUT<h1>
+<h1>8. CHECKOUT<h1>
 <p align="center">
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259986655-3385d2ab-782f-4ba2-b222-ed89811b3253.png">
 </p>
 
 <a name = "blog"></a>
-<h1>8. BLOG<h1>
+<h1>9. BLOG<h1>
 <p align="center">
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259987049-426e92b9-2583-4c95-a374-abe7b61a301f.png">
 </p>
 
-<h1>8.1 BLOG DETAIL<h1>
+<h1>9.1 BLOG DETAIL<h1>
 <p align="center">
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259987420-deb94e26-fd8d-45d4-9f6e-72208c93cc39.png">
 </p>
 
 <a name = "aboutus"></a>
-<h1>9. ABOUT US<h1>
+<h1>10. ABOUT US<h1>
 <p align="center">
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259987687-f4186537-f262-4fb1-b74f-3f7c9820ea30.png">
 </p>
 
 <a name = "contact"></a>
-<h1>10. CONTACT<h1>
+<h1>11. CONTACT<h1>
 <p align="center">
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259987797-527f1f1a-a22e-43e9-a882-316b3a934a74.png">
 </p>
 
-<a name = "adminorder"></a>
-<h1>10. ORDER MANAGEMENT<h1>
+<a name = "admindashboard"></a>
+<h1>12. DASHBOARD ADMIN<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231945358-df543aa0-f40c-45e6-a7c4-63a401715294.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259988785-40977679-7fb2-4b0e-99db-27dec01fcdf9.png">
 </p>
 
 <a name = "adminproduct"></a>
