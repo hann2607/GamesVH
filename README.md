@@ -121,9 +121,9 @@
 </p>
 
 <a name = "adminproduct"></a>
-<h1>11. PRODUCT MANAGEMENT<h1>
+<h1>13. PRODUCT MANAGEMENT<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231946803-32e536f3-159b-4451-a7af-13420a0b1067.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259989128-fa9d70fc-24b6-4a19-9196-430a7821fdcc.png">
 </p>
 
 <a name = "adminaccount"></a>
