@@ -37,6 +37,10 @@
 [16. FEEDBACK WEBSITE](#feedbackwebsite)  
 
 [17. REVENUE STATISTICAL](#revenue)  
+
+
+This project establishes a high-quality e-commerce website, specifically geared towards the gaming community, offering Vietnameseized version for the game and essential accessories. The project architecture follows an API Driven model, utilizing AngularJS and Bootstrap 4 for a smooth user interface. On the backend, the project leverages Spring Boot RESTFul API, ensuring robust and flexible integration.
+
   
 <a name = "login"></a>
 <h1>1. SIGNIN/SIGNUP<h1>
