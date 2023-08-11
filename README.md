@@ -65,7 +65,7 @@
 <a name = "shop"></a>
 <h1>5. SHOP<h1>
 <p align="center">
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259984803-d4ae1245-db04-43db-8a4b-04d005c46891.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259985271-175084bf-56be-497b-902f-c0c41f0e2c0a.png">
 </p>
 
 <a name = "detailsproduct"></a>
