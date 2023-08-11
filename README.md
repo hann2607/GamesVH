@@ -71,7 +71,7 @@
 <a name = "detailsproduct"></a>
 <h1>6. DETAILS PRODUCT<h1>
 <p align="center">
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259984958-a4342282-9c58-4dda-98ac-9f0fe9227778.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259986431-e851a9e4-0d9e-406c-b024-a227a6e19865.png">
 </p>
   
   <a name = "cart"></a>
