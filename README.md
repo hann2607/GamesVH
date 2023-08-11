@@ -131,6 +131,16 @@
 <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259989329-05ac0350-4579-43fc-accb-9c0ab01b1a38.png">
 </p>
 
+<a name = "adminblog"></a>
+<h1>14. BLOG MANAGEMENT<h1>
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259989590-f379c423-0321-4641-a735-29b90b189e8e.png">
+</p>
+
+<h1>14.1 BLOG COMMENT<h1>
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259989919-6f82469d-fa79-410f-8efa-70868413cc28.png">
+</p>
 
 <a name = "adminaccount"></a>
 <h1>12. ACCOUNT MANAGEMENT<h1>
