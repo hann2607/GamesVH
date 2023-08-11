@@ -88,7 +88,7 @@
 <a name = "checkout"></a>
 <h1>7. CHECKOUT<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231944567-fe91686a-29e3-4a57-8866-e041fd023b10.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259986655-3385d2ab-782f-4ba2-b222-ed89811b3253.png">
 </p>
 
 <a name = "aboutus"></a>
