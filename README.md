@@ -20,16 +20,23 @@
 
 [8. CHECKOUT](#checkout)  
 
-[9. ABOUT US](#aboutus)  
+[9. BLOG](#blog)  
 
-[10. CONTACT](#contact)  
+[10. ABOUT US](#aboutus)  
 
-[11. ORDER MANAGEMENT](#adminorder)  
+[11. CONTACT](#contact)  
 
-[12. PRODUCT MANAGEMENT](#adminproduct)  
+[12. ADMIN DASHBOARD](#admindashboard)  
 
-[13. ACCOUNT MANAGEMENT](#adminaccount)  
+[13. PRODUCT MANAGEMENT](#adminproduct)  
 
+[14. BLOG MANAGEMENT](#adminblog)  
+
+[15. COUPON MANAGEMENT](#admincoupon)  
+
+[16. FEEDBACK WEBSITE](#feedbackwebsite)  
+
+[17. REVENUE STATISTICAL](#revenue)  
   
 <a name = "login"></a>
 <h1>1. SIGNIN/SIGNUP<h1>
