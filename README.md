@@ -75,14 +75,14 @@
 </p>
   
   <a name = "cart"></a>
-<h1>6. MINI CART<h1>
+<h1>7. MINI CART<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231944286-acef880b-8454-4e9d-923b-4a733858f2f3.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259985895-700407ca-7584-4652-8164-527ec239c5c4.png">
 </p>
   
- <h1>6.1 PAGE CART<h1>
+ <h1>7.1 PAGE CART<h1>
 <p align="center">
-<img src="https://user-images.githubusercontent.com/117273434/231944426-667ab649-45bb-41e8-ad0c-bd94ba038dc9.png">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259986072-81d7116c-4743-43c2-9055-a6557e354938.png">
 </p>
 
 <a name = "checkout"></a>
