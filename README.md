@@ -40,7 +40,8 @@
 
 
 <h1>DESCRIPTION<h1>
-This project establishes a high-quality e-commerce website, specifically geared towards the gaming community, offering Vietnameseized version for the game and essential accessories. The project architecture follows an API Driven model, utilizing AngularJS and Bootstrap 4 for a smooth user interface. On the backend, the project leverages Spring Boot RESTFul API, ensuring robust and flexible integration.
+  <p> 
+  This project establishes a high-quality e-commerce website, specifically geared towards the gaming community, offering Vietnameseized version for the game and essential accessories. The project architecture follows an API Driven model, utilizing AngularJS and Bootstrap 4 for a smooth user interface. On the backend, the project leverages Spring Boot RESTFul API, ensuring robust and flexible integration.
 
 -	Download JDK SE17:
 http://www.oracle.com/technetwork/java/javase/downloads/index.html
@@ -65,6 +66,8 @@ https://projectlombok.org/
 https://nodejs.org/en/download
 
 - AngularJS: 1.8.3
+  </p>
+
 
   
 <a name = "login"></a>
