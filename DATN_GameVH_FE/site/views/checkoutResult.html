@@ -1,0 +1,47 @@
+<div class="wrap-container">
+	<div class="image-bg-body"></div>
+	<main class="main">
+		<div class="main-container">
+			<div class="check-container">
+				<div class="check-background">
+					<svg viewBox="0 0 65 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M7 25L27.3077 44L58.5 7" stroke="white" stroke-width="13" stroke-linecap="round"
+							stroke-linejoin="round" />
+					</svg>
+				</div>
+				<div class="check-shadow"></div>
+			</div>
+			<div class="content position-relative mt-10">
+				<div class="row d-flex flex-column align-items-center">
+					<h4 style="color: #5de593;">Thanh toán thành công!</h4>
+					<h6>Hệ thống sẽ tự động chuyển về trang chủ sau <span id="countdown"></span> giây. Cảm ơn quý khách
+						đã sử dụng dịch vụ.</h6>
+					<button type="button" class="btn btn btn-outline-primary-2" onclick="redirectToHomepageNow()">Quay về trang chủ</button>
+				</div>
+			</div>
+		</div>
+		<script>
+			function redirectToHomepage() {
+				var countdownElement = document.getElementById('countdown');
+				var countdownValue = 10; // Số giây đếm ngược
+
+				var countdownInterval = setInterval(function () {
+					countdownElement.innerText = countdownValue;
+					countdownValue--;
+
+					if (countdownValue < 0) {
+						clearInterval(countdownInterval);
+						window.location.href = "/"; // Thay đổi đường dẫn tới trang chủ của bạn
+					}
+				}, 1000); // 1000ms = 1 giây
+			}
+
+			function redirectToHomepageNow() {
+				window.location.href = "/"; // Thay đổi đường dẫn tới trang chủ của bạn
+			}
+
+			// Gọi hàm để bắt đầu chuyển hướng sau 10 giây và hiển thị số đếm ngược
+			redirectToHomepage();
+		</script>
+	</main>
+</div>

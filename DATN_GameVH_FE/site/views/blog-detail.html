@@ -1,0 +1,263 @@
+<div class="wrap-container" ng-controller="BlogDetailController">
+    <div class="image-bg-body"></div>
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/blog">Bài viết</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{blog.title}}</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <!-- Sign in / Register Modal -->
+        <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="form-box">
+                            <div class="form-tab">
+                                <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" id="signin-tab" data-toggle="tab"
+                                            href="#signin" role="tab" aria-controls="signin" aria-selected="true">Đăng
+                                            nhập</a></li>
+                                </ul>
+                                <div class="tab-content" id="tab-content-5">
+                                    <div class="tab-pane fade show active" id="signin" role="tabpanel"
+                                        aria-labelledby="signin-tab" ng-controller="LoginController">
+                                        <form name="LoginForm" novalidate ng-submit="login()">
+                                            <div class="form-group">
+                                                <label for="singin-email">Tên đăng nhập *</label>
+                                                <input type="text" ng-model="account.username" class="form-control"
+                                                    ng-class="{'is-invalid': (LoginForm.username.$invalid && LoginForm.username.$touched) || (LoginForm.$submitted && LoginForm.username.$invalid) || (LoginForm.$submitted && isValidUsername)}"
+                                                    name="username" ng-required="true" />
+                                            </div>
+                                            <!-- End .form-group -->
+
+                                            <div class="mb-1 text-danger font-weight-bold">
+                                                <div
+                                                    ng-show="(LoginForm.username.$error.required && LoginForm.username.$touched) || (LoginForm.$submitted && LoginForm.username.$invalid)">
+                                                    Tên đăng nhập không được để trống!
+                                                </div>
+                                            </div>
+                                            <!-- End Error Username-->
+
+                                            <div class="form-group">
+                                                <label for="singin-password">Mật khẩu *</label> <input type="password"
+                                                    ng-model="account.password" class="form-control"
+                                                    id="singin-password"
+                                                    ng-class="{'is-invalid': (LoginForm.password.$invalid && LoginForm.password.$touched) || (LoginForm.$submitted && LoginForm.password.$invalid) || (LoginForm.$submitted && isValidPassword)}"
+                                                    name="password" required>
+                                            </div>
+                                            <!-- End .form-group -->
+
+                                            <div class="mb-1 text-danger font-weight-bold">
+                                                <div
+                                                    ng-show="(LoginForm.password.$error.required && LoginForm.password.$touched) || (LoginForm.$submitted && LoginForm.password.$invalid)">
+                                                    Mật khẩu không được để trống!
+                                                </div>
+                                                <div ng-show="LoginForm.$submitted && isValidPassword">
+                                                    Sai mật khẩu!
+                                                </div>
+                                            </div>
+                                            <!-- End Error Password-->
+
+                                            <div class="form-footer mb-0 pb-0 d-flex justify-content-center">
+                                                <button type="submit" class="btn btn-outline-primary-2">
+                                                    <span>ĐĂNG NHẬP</span> <i class="icon-long-arrow-right"></i>
+                                                </button>
+                                            </div>
+                                            <h4 class="text-danger font-weight-bold text-center mb-0">{{message}}</h4>
+                                            <!-- End .form-footer -->
+                                        </form>
+                                    </div>
+                                    <!-- .End .tab-pane -->
+                                </div>
+                                <!-- End .tab-content -->
+                            </div>
+                            <!-- End .form-tab -->
+                        </div>
+                        <!-- End .form-box -->
+                    </div>
+                    <!-- End .modal-body -->
+                </div><!-- End .modal-content -->
+            </div><!-- End .modal-dialog -->
+        </div><!-- End .modal -->
+
+        <div class="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <article class="entry single-entry">
+                            <figure class="entry-media">
+                                <img src="https://drive.google.com/uc?id={{blog.image}}" alt="image desc">
+                            </figure><!-- End .entry-media -->
+
+                            <div class="entry-body">
+                                <div class="entry-meta">
+                                    <span class="entry-author">
+                                        <i class="fa-solid fa-user"></i> <a href="#"> {{blog.username}}</a>
+                                    </span>
+                                    <span class="meta-separator">|</span>
+                                    <a href="#">{{ calculateTimeAgo(blog.createDate) }}</a>
+                                    <span class="meta-separator">|</span>
+                                    </i><a href="#comments"> {{blog.commentCount}} bình luận</a>
+                                </div><!-- End .entry-meta -->
+
+                                <h2 class="entry-title">
+                                    {{blog.title}}
+                                </h2><!-- End .entry-title -->
+                                <br>
+                                <div class="entry-content editor-content" ng-bind-html="blog.content">
+
+                                </div><!-- End .entry-content -->
+
+                                <div class="entry-footer row no-gutters flex-column flex-md-row">
+                                    <div class="col-md">
+                                        <div class="entry-tags">
+                                            <span>Tags:</span>
+                                        </div><!-- End .entry-tags -->
+                                    </div><!-- End .col -->
+
+                                    <div class="col-md-auto mt-2 mt-md-0">
+                                        <div class="social-icons social-icons-color">
+                                            <span class="social-label">Share this post:</span>
+                                            <a href="#" class="social-icon social-facebook" title="Facebook"
+                                                target="_blank"><i class="icon-facebook-f"></i></a>
+                                            <a href="#" class="social-icon social-twitter" title="Twitter"
+                                                target="_blank"><i class="icon-twitter"></i></a>
+                                            <a href="#" class="social-icon social-pinterest" title="Pinterest"
+                                                target="_blank"><i class="icon-pinterest"></i></a>
+                                            <a href="#" class="social-icon social-linkedin" title="Linkedin"
+                                                target="_blank"><i class="icon-linkedin"></i></a>
+                                        </div><!-- End .soial-icons -->
+                                    </div><!-- End .col-auto -->
+                                </div><!-- End .entry-footer row no-gutters -->
+                            </div><!-- End .entry-body -->
+                        </article><!-- End .entry -->
+
+                        <nav class="pager-nav" aria-label="Page navigation">
+                            <a class="pager-link pager-link-prev" href="/blog/detail/{{blogIdPrev}}"
+                                aria-label="Previous" tabindex="-1">
+                                Bài trước
+                            </a>
+
+                            <a class="pager-link pager-link-next" href="/blog/detail/{{blogIdNext}}" aria-label="Next"
+                                tabindex="-1">
+                                Bài tiếp theo
+                            </a>
+                        </nav><!-- End .pager-nav -->
+
+                        <div class="comments" id="comments">
+                            <h3 class="title">{{blog.commentCount}} Bình luận</h3><!-- End .title -->
+
+                            <ul style="max-height: 30em;overflow-y: auto;display: block;">
+                                <li ng-repeat="item in comments">
+                                    <div class="comment">
+                                        <figure class="comment-media">
+                                            <a href="#">
+                                                <img src="https://drive.google.com/uc?id={{item.avatarUser}}"
+                                                    alt="User name">
+                                            </a>
+                                        </figure>
+
+                                        <div class="comment-body">
+                                            <!-- <a href="#" class="comment-reply">Reply</a> -->
+                                            <div class="comment-user">
+                                                <h4><a href="#">{{item.username}}</a></h4>
+                                                <span class="comment-date">{{ calculateTimeAgo(item.createDate)
+                                                    }}</span>
+                                            </div><!-- End .comment-user -->
+
+                                            <div class="comment-content">
+                                                <p>{{item.content}}</p>
+                                            </div><!-- End .comment-content -->
+                                        </div><!-- End .comment-body -->
+                                    </div><!-- End .comment -->
+                                </li>
+                            </ul>
+                        </div><!-- End .comments -->
+                        <div id="toast"></div> 
+                        <div class="reply">
+                            <div class="heading">
+                                <h3 class="title">Để lại một bình luận</h3><!-- End .title -->
+                            </div><!-- End .heading -->
+                            
+                            <form ng-show="username">
+                                <label for="reply-message" class="sr-only">Bình luận</label>
+                                <textarea name="reply-message" id="reply-message" cols="30" rows="4" ng-model="commentData.content"
+                                    class="form-control" required placeholder="Nhập nội dung bình luận *"></textarea>
+                                <button type="submit" class="btn btn-outline-primary-2" ng-click="sendComment()">
+                                    <span style="font-weight: bold;">Gửi bình luận</span>
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                </button>
+                            </form>
+                            <div ng-hide="username">
+                                <a type="button" ng-href="#signin-modal" data-toggle="modal" ng-click="setBaseUrl()"
+                                    class="btn btn-outline-primary-2">
+                                    <span style="font-weight: bold;">Đăng nhập để sử dụng chức năng này</span>
+                                    <i class="fa-solid fa-user-lock"></i>
+                                </a>
+                            </div>
+                        </div><!-- End .reply -->
+                    </div><!-- End .col-lg-9 -->
+
+                    <aside class="col-lg-3">
+                        <div class="sidebar">
+
+                            <div class="widget">
+                                <h3 class="widget-title">Bài viết phổ biến</h3><!-- End .widget-title -->
+
+                                <ul class="posts-list">
+                                    <li ng-repeat="item in blogPopular">
+                                        <figure>
+                                            <a href="/blog/detail/{{item.id}}">
+                                                <img src="https://drive.google.com/uc?id={{item.image}}" alt="post">
+                                            </a>
+                                        </figure>
+
+                                        <div>
+                                            <span>{{ calculateTimeAgo(item.createDate) }}</span>
+                                            <h4><a href="/blog/detail/{{item.id}}">{{item.title}}</a></h4>
+                                        </div>
+                                    </li>
+                                </ul><!-- End .posts-list -->
+                            </div><!-- End .widget -->
+                            <div class="widget">
+                                <h3 class="widget-title">Bình luận mới nhất</h3><!-- End .widget-title -->
+
+                                <ul class="posts-list">
+                                    <li ng-repeat="item in comments | orderBy:'createDate':true | limitTo:3">
+                                        <div class="comment">
+                                            <figure class="comment-media">
+                                                <a href="#">
+                                                    <img src="https://drive.google.com/uc?id={{item.avatarUser}}"
+                                                        alt="User name">
+                                                </a>
+                                            </figure>
+
+                                            <div class="comment-body">
+                                                <!-- <a href="#" class="comment-reply">Reply</a> -->
+                                                <div class="comment-user">
+                                                    <h4><a href="#">{{item.username}}</a></h4>
+                                                    <span class="comment-date">{{ calculateTimeAgo(item.createDate)
+                                                        }}</span>
+                                                </div><!-- End .comment-user -->
+
+                                                <div class="comment-content">
+                                                    <p>{{item.content}}</p>
+                                                </div><!-- End .comment-content -->
+                                            </div><!-- End .comment-body -->
+                                        </div><!-- End .comment -->
+                                    </li>
+                                </ul><!-- End .posts-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .sidebar sidebar-shop -->
+                    </aside><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+</div><!-- End .page-wrapper -->

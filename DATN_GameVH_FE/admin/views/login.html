@@ -1,0 +1,49 @@
+
+<!-- Main Wrapper -->
+<div class="main-wrapper" ng-controller="LoginController" style="height: 100vh; background-image: url(../assets/images/masonry/background-login.gif);background-repeat: no-repeat;
+background-attachment: fixed;
+background-size:  cover, contain;">
+	<div class="account-content">
+		<div class="container">
+
+			<!-- Account Logo -->
+			<div class="account-logo">
+				<a href="index.html"><img src="../assets/images/masonry/logo-login.jpg" alt="7TL Technologies" ></a>
+			</div>
+			<!-- /Account Logo -->
+
+			<div class="account-box">
+				
+				<div class="account-wrapper" >
+					<h1 class="account-title" style="color: #fff; ">ĐĂNG NHẬP</h1>
+					<!-- Account Form -->
+					<form >
+						<div class="form-group">
+							<label>Tên người dùng</label>
+							<input ng-model="userName" class="form-control" type="text">
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col">
+									<label>Mật khẩu</label>
+								</div>
+							</div>
+							<input ng-model="password" class="form-control" type="password">
+						</div>
+						<div class="form-group text-center">
+							<button
+							ng-click="submitLogin()"
+							class="btn btn-primary submit-btn"
+						  >
+							Đăng nhập
+						  </button>
+						</div>
+					</form>
+					<!-- /Account Form -->
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /Main Wrapper -->

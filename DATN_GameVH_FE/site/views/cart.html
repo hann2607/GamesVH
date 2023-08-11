@@ -1,0 +1,194 @@
+<div class="wrap-container" ng-controller="CartController">
+	<div class="image-bg-body"></div>
+	<main class="main">
+		<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+			<div class="container">
+				<h1 class="page-title">
+					Giỏ hàng<span>Của tôi</span>
+				</h1>
+			</div>
+			<!-- End .container -->
+		</div>
+		<!-- End .page-header -->
+		<nav aria-label="breadcrumb" class="breadcrumb-nav">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+					<li class="breadcrumb-item"><a href="/shop">Cửa hàng</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+				</ol>
+			</div>
+			<!-- End .container -->
+		</nav>
+		<!-- End .breadcrumb-nav -->
+
+		<div class="page-content">
+			<div class="cart">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-9 table-responsive" style="height: 50em;">
+							<table class="table table-cart table-mobile">
+								<thead>
+									<tr>
+										<th>Sản phẩm</th>
+										<th>Đơn giá</th>
+										<th>Số lượng</th>
+										<th></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr ng-repeat="item in cart">
+										<td class="product-col" ng-show="item != null">
+											<div class="product">
+												<figure class="product-media">
+													<a href="/product/detail/{{item.id}}"> <img
+															src="https://drive.google.com/uc?id={{item.poster ? item.poster : '1k7mZ306aaQltWZVJBe-zbXizg2NmAogx'}}"
+															class="border border-1" alt="Product image">
+													</a>
+												</figure>
+
+												<h3 class="product-title">
+													<a
+														href="/product/detail/{{item.id}}">{{item.name}}</a>
+												</h3>
+												<!-- End .product-title -->
+											</div> <!-- End .product -->
+										</td>
+										<td class="price-col"
+											ng-show="{{item != null && item.offer == 0}}">{{
+											item.salePrice | vndFormat}}</td>
+										<td class="price-col"
+											ng-show="{{item != null && item.offer != 0}}">{{
+											(item.salePrice - (item.salePrice *
+											item.offer)) | vndFormat}}<span class="old-price d-block w-100">{{
+												item.salePrice | vndFormat}}</span>
+										</td>
+										<td class="quantity-col" ng-show="{{item != null}}">
+											<div class="cart-product-quantity text-center">x {{
+												item.qty }}</div> <!-- End .cart-product-quantity -->
+										</td>
+										<!-- <td class="total-col">$84.00</td> -->
+										<td class="remove-col" ng-show="{{item != null}}">
+											<button class="btn-remove" data-cart-id="{{item.id}}"
+												ng-click="removeCart($event)">
+												<i class="icon-close"></i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- End .table table-wishlist -->
+
+							<div class="cart-bottom" hidden>
+								<div class="cart-discount">
+									<form action="#">
+										<div class="input-group">
+											<input type="text" class="form-control" required placeholder="Nhập mã giảm giá...">
+											<div class="input-group-append">
+												<button class="btn btn-outline-primary-2" type="submit">
+													<i class="icon-long-arrow-right"></i>
+												</button>
+											</div>
+											<!-- .End .input-group-append -->
+										</div>
+										<!-- End .input-group -->
+									</form>
+								</div>
+								<!-- End .cart-discount -->
+
+								<a href="/viewCart" class="btn btn-outline-dark-2" style="cursor: pointer;"><span>Cập nhật giỏ hàng</span><i class="icon-refresh"></i></a>
+							</div>
+							<!-- End .cart-bottom -->
+						</div>
+						<!-- End .col-lg-9 -->
+						<aside class="col-lg-3">
+							<div class="summary summary-cart">
+								<h3 class="summary-title">Giỏ hàng</h3>
+								<!-- End .summary-title -->
+
+								<table class="table table-summary">
+									<tbody>
+										<tr class="summary-subtotal">
+											<td>Thành tiền:</td>
+											<td>{{TotalPrice | vndFormat}}</td>
+										</tr>
+										<!-- End .summary-subtotal -->
+										<tr class="summary-shipping">
+											<td>Vận chuyển:</td>
+											<td>&nbsp;</td>
+										</tr>
+
+										<tr class="summary-shipping-estimate">
+											<td>
+												<div class="custom-control custom-radio">
+													<input type="radio" id="free-shipping" name="shipping"
+														class="custom-control-input" checked> <label
+														class="custom-control-label" for="free-shipping">Miễn phí vận chuyển</label>
+												</div> <!-- End .custom-control -->
+											</td>
+											<td>0 VND</td>
+										</tr>
+										<!-- End .summary-shipping-row -->
+
+										<tr class="summary-shipping-row" hidden>
+											<td>
+												<div class="custom-control custom-radio">
+													<input type="radio" id="standart-shipping" name="shipping"
+														class="custom-control-input"> <label
+														class="custom-control-label"
+														for="standart-shipping">Standart:</label>
+												</div> <!-- End .custom-control -->
+											</td>
+											<td>$10.00</td>
+										</tr>
+										<!-- End .summary-shipping-row -->
+
+										<tr class="summary-shipping-row" hidden>
+											<td>
+												<div class="custom-control custom-radio">
+													<input type="radio" id="express-shipping" name="shipping"
+														class="custom-control-input"> <label
+														class="custom-control-label"
+														for="express-shipping">Express:</label>
+												</div> <!-- End .custom-control -->
+											</td>
+											<td>$20.00</td>
+											
+										</tr>
+										<!-- End .summary-shipping-row -->
+
+										<tr class="summary-shipping-estimate" hidden>
+											<td>Estimate for Your Country<br> <a
+													th:href="@{|/account?username=${#authentication.name}|}">Change
+													address</a></td>
+											<td>&nbsp;</td>
+										</tr>
+										<!-- End .summary-shipping-estimate -->
+										
+										<tr class="summary-total">
+											<td>Tổng tiền:</td>
+											<td>{{TotalPrice | vndFormat}}</td>
+										</tr>
+										<!-- End .summary-total -->
+									</tbody>
+								</table>
+								<!-- End .table table-summary -->
+
+								<a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">THANH TOÁN ĐƠN HÀNG</a>
+							</div>
+							<!-- End .summary -->
+
+							<a href="/shop" class="btn btn-outline-dark-2 btn-block mb-3" style="cursor: pointer;"><span>TIẾP TỤC MUA SẮM</span><i class="icon-refresh"></i></a>
+						</aside>
+						<!-- End .col-lg-3 -->
+					</div>
+					<!-- End .row -->
+				</div>
+				<!-- End .container -->
+			</div>
+			<!-- End .cart -->
+		</div>
+		<!-- End .page-content -->
+	</main>
+</div>

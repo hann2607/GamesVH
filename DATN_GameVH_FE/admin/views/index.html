@@ -1,0 +1,205 @@
+<!-- Header -->
+<div ng-include="'/templates/header.html'"></div>
+<!-- /Header -->
+
+<!-- Sidebar -->
+<div ng-include="'/templates/sidebar.html'"></div>
+<!-- /Sidebar -->
+
+<!-- Page Wrapper -->
+<div class="page-wrapper" ng-controller="DashboardController">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Chào mừng {{userName}}!</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item active">TRANG QUẢN LÝ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-gamepad"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{recordTotal.totalProduct}}</h3>
+                            <span>Sản phẩm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-book"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{recordTotal.totalBlog}}</h3>
+                            <span>Bài viết</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{recordTotal.totalCustomer}}</h3>
+                            <span>Khách hàng</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-credit-card-alt"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{recordTotal.totalOrder}}</h3>
+                            <span>Đơn hàng</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Tổng sản phẩm trong năm</h3>
+                                <div id="bar-charts1"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Tổng đơn hàng trong năm</h3>
+                                <div id="line-charts1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 d-flex">
+                <div class="card card-table flex-fill">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">5 SẢN PHẨM VỪA ĐƯỢC THÊM </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap custom-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Nguồn</th>
+                                        <th>Số lượng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="product in products">
+                                        <td>{{$index+1}}</td>
+                                        <td>
+                                            <h2><a href="#">{{product.name}}</a></h2>
+                                        </td>
+                                        <td>{{product.createDate |date:'dd/MM/yyyy'}}</td>
+                                        <td>{{product.source}}</td>
+                                        <td>{{product.qty}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex">
+                <div class="card card-table flex-fill">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">5 ĐƠN HÀNG VỪA ĐƯỢC TẠO</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table custom-table table-nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Hình thức thanh toán</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Tổng tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="order in orders">
+                                        <td>{{order.orderId}}</td>
+                                        <td>
+                                            <h2><a href="#">{{order.fullname}}</a></h2>
+                                        </td>
+                                        <td>{{order.paymentType}}</td>
+                                        <td>{{order.createDate |date:'dd/MM/yyyy'}}</td>
+                                        <td>{{order.totalPrice | currency: 'đ ' : '0'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 d-flex">
+                <div class="card card-table flex-fill">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">Đánh giá sản phẩm mới nhất</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap custom-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Đánh Giá</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Người Đánh Giá</th>
+                                        <th>Sản Phẩm Đánh Giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in feedback">
+                                        <td>{{$index+1}}</td>
+                                        <td>
+                                            {{item.content}}
+                                        </td>
+                                        <td>{{item.createDate |date:'dd/MM/yyyy'}}</td>
+                                        <td>{{item.account.username}}</td>
+                                        <td>
+                                            <h2><a href="/product-list">{{item.product.name}}</a></h2>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+</div>
+<!-- /Page Wrapper -->

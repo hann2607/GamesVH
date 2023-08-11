@@ -1,0 +1,101 @@
+<!-- Header -->
+<div ng-include="'/templates/header.html'"></div>
+<!-- /Header -->
+
+<!-- Sidebar -->
+<div ng-include="'/templates/sidebar.html'"></div>
+<!-- /Sidebar -->
+
+<!-- /Page Wrapper -->
+<div class="page-wrapper" ng-controller="FeedbackWebsiteController">
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">ĐÁNH GIÁ WEBSITE</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Trang Chủ</a>
+                        </li>
+                        <li class="breadcrumb-item active">Đánh Giá Website</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable" id="tableFeedbackWebsite">
+                        <thead>
+                            <tr>
+                                <th style="width: 5%;">#</th>
+                                <th style="width: 10%;">Mã Đánh Giá</th>
+                                <th style="width: 14%;">Tên Đăng Nhập</th>
+                                <th style="width: 15%;">Họ Và Tên</th>
+                                <th style="width: 15%;">Ngày Đánh Giá</th>
+                                <th>Nội Dung</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /Page Content -->
+
+    <!-- Edit Category Modal -->
+    <div class="modal custom-modal fade" id="edit_Category" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Type
+                                </label>
+                                <select ng-model="formType" class="select">
+                                    <option value="Game">Game</option>
+                                    <option value="PK">Phụ Kiện</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Category ID
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input ng-model="formCategoryId" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Category Name
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input ng-model="formName" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group submit-section col-md-12">
+                                <button ng-click="submitUpdate()" class="btn btn-primary submit-btn">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Category Modal -->
+
+    <!-- /Page Wrapper -->
+</div>

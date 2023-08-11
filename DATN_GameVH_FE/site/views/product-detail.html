@@ -1,0 +1,309 @@
+<div class="wrap-container" ng-controller="ProductDetailController">
+    <div class="image-bg-body"></div>
+    <main class="main" ng-controller="CartController">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+            <div class="container d-flex align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{product.name}}
+                    </li>
+                </ol>
+
+                <nav class="product-pager ml-auto" aria-label="Product">
+                    <a class="product-pager-link product-pager-prev" href="/product/detail/{{productIdPrev}}" aria-label="Previous" tabindex="-1"> <i class="icon-angle-left"></i> <span>Trước</span>
+                    </a>
+                    <a class="product-pager-link product-pager-next" href="/product/detail/{{productIdNext}}" aria-label="Next" tabindex="-1"> <span>Sau</span> <i class="icon-angle-right"></i>
+                    </a>
+                </nav>
+                <!-- End .pager-nav -->
+            </div>
+            <!-- End .container -->
+        </nav>
+        <!-- End .breadcrumb-nav -->
+
+        <div class="page-content" ng-controller="WishlistController">
+            <div class="container">
+                <div class="product-details-top">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="product-gallery">
+                                <figure class="product-main-image">
+                                    <img id="product-zoom" class="product-gallery-item" src="https://drive.google.com/uc?id={{product.poster ? product.poster : '1k7mZ306aaQltWZVJBe-zbXizg2NmAogx'}}" data-zoom-image="https://drive.google.com/uc?id={{product.poster}}" alt="product image">
+                                    <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                        <i class="icon-arrows"></i>
+                                    </a>
+                                </figure>
+                                <div id="product-zoom-gallery" class="product-gallery-masonry">
+                                    <a href="#" ng-repeat="i in thumbnails">
+                                        <img class="product-gallery-item" src="https://drive.google.com/uc?id={{i ? i : '1k7mZ306aaQltWZVJBe-zbXizg2NmAogx'}}" alt="product cross">
+                                    </a>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#btn-product-gallery').on('click', function(e) {
+                                        e.preventDefault();
+                                        var $galleryItems = $('.product-gallery-item');
+                                        var galleryImages = [];
+
+                                        $galleryItems.each(function() {
+                                            var src = $(this).attr('src');
+                                            galleryImages.push({
+                                                src: src
+                                            });
+                                        });
+
+                                        $.magnificPopup.open({
+                                            items: galleryImages,
+                                            gallery: {
+                                                enabled: true
+                                            },
+                                            type: 'image'
+                                        });
+                                    });
+                                });
+                            </script>
+                            <style>
+                                .mfp-zoom-out-cur {
+                                    height: auto;
+                                }
+                            </style>
+                            <!-- End .product-gallery -->
+                        </div>
+                        <!-- End .col-md-6 -->
+
+                        <div class="col-md-6">
+                            <div class="product-details sticky-content">
+                                <h1 class="product-title">{{product.name}}</h1>
+                                <!-- End .product-title -->
+                                <p hidden id="ProductID">{{product.id}}</p>
+                                <div class="ratings-container">
+                                    <div class="ratings">
+                                        <div class="ratings-val" ng-if="product.countFeedBack != 0" ng-style="{'width': (product.rate * 20) + '%'};"></div>
+                                        <div class="ratings-val" ng-if="product.countFeedBack == 0" style="width: 100%;"></div>
+                                        <!-- End .ratings-val -->
+                                    </div>
+                                    <!-- End .ratings -->
+                                    <a class="ratings-text" href="#product-accordion" id="review-link">(
+										{{product.countFeedBack}} Đánh giá )</a>
+                                </div>
+                                <!-- End .rating-container -->
+
+                                <div class="product-price">
+                                    <span class="new-price" ng-show="product.offer <= 0">{{product.salePrice |
+										vndFormat}}</span>
+                                    <span class="new-price" ng-show="product.offer > 0">{{product.salePrice -
+										(product.salePrice * product.offer) | vndFormat}}</span>
+                                    <span class="old-price" ng-show="product.offer > 0">{{product.salePrice |
+										vndFormat}}</span>
+                                </div>
+                                <!-- End .product-price -->
+
+                                <div class="product-content">
+                                    <p>{{product.details}}</p>
+                                </div>
+                                <!-- End .product-content -->
+                                <!-- End .details-filter-row -->
+
+                                <div class="product-details-action">
+                                    <a data-product-id="{{product.id}}" ng-click="addCart($event)" style="cursor: pointer;" class="btn-product btn-cart"><span>Thêm vào giỏ
+											hàng</span></a>
+
+                                    <div class="details-action-wrapper">
+                                        <a href="#" class="btn-product btn-wishlist" title="Wishlist" data-product-id="{{ product.id }}" ng-click="toggleFavorite($event)"><span>Thêm vào yêu
+												thích</span></a> <a href=" # " class="btn-product btn-compare " title="Compare "><span>So sánh</span></a>
+                                    </div>
+                                    <!-- End .details-action-wrapper -->
+                                </div>
+                                <!-- End .product-details-action -->
+
+                                <div class="product-details-footer ">
+                                    <div class="product-cat ">
+                                        <span>Thể loại:</span> <a href="/shop/{{product.type}}/{{product.categoryId}} ">{{product.categoryName}}</a>
+                                    </div>
+                                    <!-- End .product-cat -->
+
+                                    <div class="social-icons social-icons-sm ">
+                                        <span class="social-label ">Chia sẻ:</span> <a href="# " class="social-icon " title="Facebook " target="_blank "><i class="icon-facebook-f "></i></a>
+                                        <a href="# " class="social-icon " title="Twitter " target="_blank "><i class="icon-twitter "></i></a>
+                                        <a href="# " class="social-icon " title="Instagram " target="_blank "><i
+												class="icon-instagram "></i></a> <a href="# " class="social-icon " title="Pinterest " target="_blank "><i class="icon-pinterest "></i></a>
+                                    </div>
+                                </div>
+                                <!-- End .product-details-footer -->
+
+                                <div class="accordion accordion-plus product-details-accordion " id="product-accordion ">
+                                    <div class="card card-box card-sm " data-feedbackProduct-id="{{product.id}} " id="feedBackProductId ">
+                                        <div class="card-header " id="product-review-heading ">
+                                            <h2 class="card-title ">
+                                                <a class="collapsed "> Đánh giá ({{product.countFeedBack}}) </a>
+                                            </h2>
+                                        </div>
+                                        <!-- End .card-header -->
+
+                                        <div id="product-accordion-review " class="collapse show " aria-labelledby="product-review-heading " data-parent="#product-accordion ">
+                                            <div class="card-body " style="background-color: #F8F8F8; ">
+                                                <nav class="side-nav box ">
+                                                    <ul class="menu-vertical sf-arrows " style="max-height: 31em; ">
+                                                        <li ng-repeat="item in feedbacks ">
+                                                            <div class="reviews ">
+                                                                <div class="review " style="border-bottom: none; ">
+                                                                    <div class="row no-gutters pt-1 pb-1 " ng-if="item.status " style="border-bottom: 0.1rem solid #ebebeb; ">
+                                                                        <div class="col-auto ">
+                                                                            <h4>
+                                                                                <a href="# ">{{item.account.username}}</a>
+                                                                            </h4>
+                                                                            <div class="ratings-container ">
+                                                                                <div class="ratings ">
+                                                                                    <div class="ratings-val " ng-style="{ 'width': item.star * 20 + '%'} ">
+                                                                                    </div>
+                                                                                    <!-- End .ratings-val -->
+                                                                                </div>
+                                                                                <!-- End .ratings -->
+                                                                            </div>
+                                                                            <!-- End .rating-container -->
+                                                                            <span class="review-date ">{{ item.createDate
+																				| dateFormat }}</span>
+                                                                        </div>
+                                                                        <!-- End .col -->
+                                                                        <div class="col ">
+
+                                                                            <div class="review-content ">
+                                                                                <p>{{item.content}}</p>
+                                                                            </div>
+                                                                            <!-- End .review-content -->
+
+                                                                            <!-- 																	<div class="review-action "> -->
+                                                                            <!-- 																		<a href="# "><i class="icon-thumbs-up "></i>Helpful -->
+                                                                            <!-- 																			(2)</a> <a href="# "><i class="icon-thumbs-down "></i>Unhelpful -->
+                                                                            <!-- 																			(0)</a> -->
+                                                                            <!-- 																	</div> -->
+                                                                            <!-- End .review-action -->
+                                                                        </div>
+                                                                        <!-- End .col-auto -->
+                                                                    </div>
+                                                                    <!-- End .row -->
+                                                                </div>
+                                                                <!-- End .review -->
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <!-- End .menu -->
+                                                </nav>
+                                                <!-- End .side-nav -->
+                                                <!-- End .reviews -->
+                                            </div>
+                                            <!-- End .card-body -->
+                                        </div>
+                                        <!-- End .collapse -->
+                                    </div>
+                                    <!-- End .card -->
+                                </div>
+                                <!-- End .accordion -->
+                            </div>
+                            <!-- End .product-details -->
+                        </div>
+                        <!-- End .col-md-6 -->
+                    </div>
+                    <!-- End .row -->
+                </div>
+                <!-- End .product-details-top -->
+
+                <hr class="mt-3 mb-5 ">
+
+                <h2 class="title text-center mb-4 ">Có thể bạn sẽ thích</h2>
+                <!-- End .title text-center -->
+                <div class="carousel-container ">
+                    <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow owl-loaded owl-drag " data-toggle="owl " data-owl-options='{
+								"nav ": false, 
+								"dots ": true,
+								"margin ": 20,
+								"loop ": true,
+								"responsive ": {
+									"0 ": {
+										"items ":2
+									},
+									"480 ": {
+										"items ":2
+									},
+									"768 ": {
+										"items ":3
+									},
+									"992 ": {
+										"items ":4
+									},
+									"1200 ": {
+										"items ":5,
+										"nav ": true
+									}
+								}
+							}'>
+                        <div class="owl-stage mb-1 ">
+                            <div class="owl-item " ng-repeat="p in sameProduct | limitTo: 6 ">
+                                <div class="product ">
+                                    <figure class="product-media ">
+                                        <!-- <span class="product-label label-sale ">Sale</span> -->
+                                        <span class="product-label label-top " ng-show="p.offer> 0">SALE {{p.offer * 100 | number:0}}%</span>
+                                        <a href="/product/detail/{{p.id}}"> <img src="https://drive.google.com/uc?id={{p.poster ? p.poster : '1k7mZ306aaQltWZVJBe-zbXizg2NmAogx'}}" alt="Product image" class="product-image">
+                                        </a>
+
+                                        <div class="product-action-vertical">
+                                            <a href="#" class="btn-product-icon btn-wishlist" title="Add to Wishlist"><span>Thêm vào yêu thích</span></a>
+                                        </div>
+                                        <!-- End .product-action-vertical -->
+
+                                        <div class="product-action">
+                                            <a class="btn-product btn-cart" data-product-id="{{p.id}}" style="cursor: pointer;" ng-click="addCart($event)"><span>Thêm vào giỏ
+													hàng</span></a>
+                                        </div>
+                                        <!-- End .product-action -->
+                                    </figure>
+                                    <!-- End .product-media -->
+
+                                    <div class="product-body">
+                                        <div class="product-cat">
+                                            <a href="/shop/{{product.type}}/{{product.categoryId}}">{{p.categoryName}}</a>
+                                        </div>
+                                        <!-- End .product-cat -->
+                                        <h3 class="product-title">
+                                            <a href="/product/detail/{{p.id}}">{{p.name}}</a>
+                                        </h3>
+                                        <!-- End .product-title -->
+                                        <div class="product-price">
+                                            <span class="new-price d-block w-100" ng-show="{{p.offer <= 0}}">{{p.salePrice | vndFormat}}</span>
+                                            <span class="new-price d-block w-100" ng-show="{{p.offer > 0}}">{{p.salePrice -
+												(p.salePrice * p.offer) | vndFormat}}</span>
+                                            <span class="old-price d-block w-100" ng-show="{{p.offer > 0}}">{{p.salePrice | vndFormat}}</span>
+                                        </div>
+
+                                        <!-- End .product-price -->
+                                        <div class="ratings-container" ng-if="p.rate != 0">
+                                            <div class="ratings">
+                                                <div class="ratings-val" ng-style="{'width': (p.rate * 20) + '%'};">
+                                                </div>
+                                                <!-- End .ratings-val -->
+                                            </div>
+                                            <!-- End .ratings -->
+                                            <span class="ratings-text">(
+												{{p.countFeedBack}} Reviews )</span>
+                                        </div>
+                                        <!-- End .rating-container -->
+                                    </div>
+                                    <!-- End .product-body -->
+                                </div>
+                                <!-- End .product -->
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- End .owl-carousel -->
+                </div>
+            </div>
+            <!-- End .container -->
+        </div>
+        <!-- End .page-content -->
+        <div id="toast"></div>
+    </main>
+</div>

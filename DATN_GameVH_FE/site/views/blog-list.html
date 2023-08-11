@@ -1,0 +1,130 @@
+<div class="wrap-container" ng-controller="BlogController">
+    <div class="image-bg-body"></div>
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">Danh sách bài viết<span>Blog</span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="#">Bài viết</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Liệt kê</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div ng-if="displayedItems.length === 0" class="text-center">
+                            <p>Không có bài viết nào được hiển thị!</p>
+                        </div>
+                        <article class="entry entry-list" ng-repeat="item in displayedItems">
+                            <div class="row align-items-center">
+                                <div class="col-md-5">
+                                    <figure class="entry-media">
+                                        <a href="/blog/detail/{{item.id}}">
+                                            <img src="https://drive.google.com/uc?id={{item.image}}" alt="image desc">
+                                        </a>
+                                    </figure><!-- End .entry-media -->
+                                </div><!-- End .col-md-5 -->
+
+                                <div class="col-md-7">
+                                    <div class="entry-body">
+                                        <div class="entry-meta">
+                                            <span class="entry-author">
+                                                <i class="fa-solid fa-user"></i> <a href="#"> {{item.username}}</a>
+                                            </span>
+                                            <span class="meta-separator">|</span>
+                                            <a href="#"><i class="fa-solid fa-clock"></i> {{
+                                                calculateTimeAgo(item.createDate) }}</a>
+                                            <span class="meta-separator">|</span>
+                                            <a href="/blog/detail/{{item.id}}#comments"><i class="fa-solid fa-comment"></i> {{item.commentCount}} bình
+                                                luận</a>
+                                        </div><!-- End .entry-meta -->
+
+                                        <h2 class="entry-title">
+                                            <a href="/blog/detail/{{item.id}}">{{item.title}}</a>
+                                        </h2><!-- End .entry-title -->
+
+                                        <!-- <div class="entry-cats">
+                                            in <a href="#">Lifestyle</a>,
+                                            <a href="#">Shopping</a>
+                                        </div> -->
+                                        <!-- End .entry-cats -->
+
+                                        <div class="entry-content"
+                                            ng-bind-html="limitContent(item.content) | striptags"></div>
+                                        <a href="/blog/detail/{{item.id}}" class="read-more">Tiếp tục</a>
+
+                                        <!-- End .entry-content -->
+                                    </div><!-- End .entry-body -->
+                                </div><!-- End .col-md-7 -->
+                            </div><!-- End .row -->
+                        </article><!-- End .entry -->
+
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination d-flex justify-content-center">
+                                <li class="page-item" ng-class="{ disabled: currentPage === 1 }">
+                                    <button class="page-link page-link-prev" aria-label="Previous"
+                                        ng-click="previousPage()" tabindex="-1" aria-disabled="{{currentPage === 1}}">
+                                        <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Trước
+                                    </button>
+                                </li>
+                                <li class="page-item" ng-repeat="pNum in getPageRange(totalPages) track by $index"
+                                    ng-class="{ active: ($index + 1) === currentPage }">
+                                    <button class="page-link" ng-click="get_ByPage($index + 1)">{{$index + 1}}</button>
+                                </li>
+                                <li class="page-item-total">của {{totalPages}}</li>
+                                <li class="page-item" ng-class="{ disabled: currentPage === totalPages }">
+                                    <button class="page-link page-link-next" aria-label="Next" ng-click="nextPage()">Sau
+                                        <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div><!-- End .col-lg-9 -->
+
+                    <aside class="col-lg-3">
+                        <div class="sidebar">
+                            <div class="widget widget-search">
+                                <h3 class="widget-title">Tìm kiếm</h3><!-- End .widget-title -->
+
+                                <form ng-submit="searchBlog()">
+                                    <label for="search-blog-id" class="sr-only">Tìm kiếm bài viết</label>
+                                    <input type="search" class="form-control" name="ws" id="search-blog-id"
+                                        placeholder="Tìm kiếm bài viết">
+                                    <button type="submit" class="btn"><i class="icon-search"></i><span
+                                            class="sr-only">Search</span></button>
+                                </form>
+                            </div><!-- End .widget -->
+
+                            <div class="widget">
+                                <h3 class="widget-title">Bài viết phổ biến</h3><!-- End .widget-title -->
+
+                                <ul class="posts-list">
+                                    <li ng-repeat="item in blogPopular">
+                                        <figure>
+                                            <a href="/blog/detail/{{item.id}}">
+                                                <img src="https://drive.google.com/uc?id={{item.image}}" alt="post">
+                                            </a>
+                                        </figure>
+
+                                        <div>
+                                            <span>{{ calculateTimeAgo(item.createDate) }}</span>
+                                            <h4><a href="/blog/detail/{{item.id}}">{{item.title}}</a></h4>
+                                        </div>
+                                    </li>
+                                </ul><!-- End .posts-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .sidebar -->
+                    </aside><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+</div><!-- End .page-wrapper -->

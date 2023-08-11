@@ -1,0 +1,650 @@
+<div class="wrap-container" ng-controller="ProfileController">
+	<div class="image-bg-body"></div>
+	<main class="main">
+		<div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
+			<div class="container">
+				<h1 class="page-title">
+					Tài khoản<span>Của tôi</span>
+				</h1>
+			</div>
+			<!-- End .container -->
+		</div>
+		<!-- End .page-header -->
+		<nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Tài khoản của tôi</li>
+				</ol>
+			</div>
+			<!-- End .container -->
+		</nav>
+		<!-- End .breadcrumb-nav -->
+
+		<div class="page-content">
+			<div class="dashboard">
+				<div class="container">
+					<div class="row">
+						<aside class="col-md-4 col-lg-3">
+							<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link" ng-class="{active: selectedTab === 'tab-dashboard'}"
+										ng-click="changeTabRedirect('tab-dashboard')" style="cursor: pointer;">Thông tin
+										của tôi</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" ng-class="{active: selectedTab === 'tab-orders'}"
+										ng-click="changeTabRedirect('tab-orders')" style="cursor: pointer;">Đơn hàng</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" ng-class="{active: selectedTab === 'tab-coupons'}"
+										ng-click="changeTabRedirect('tab-coupons')" style="cursor: pointer;">Mã giảm
+										giá</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="#" ng-click="logout()">Đăng xuất</a>
+								</li>
+							</ul>
+						</aside>
+						<!-- End .col-lg-3 -->
+
+						<div class="col-md-8 col-lg-9">
+							<div class="tab-content">
+								<div class="tab-pane fade"
+									ng-class="{show: selectedTab === 'tab-dashboard', active: selectedTab === 'tab-dashboard'}"
+									id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+									<form name="accountInfo" novalidate ng-submit="accountInfoSubmit()">
+										<div class="text-center mb-4">
+											<div class="avatar-wrapper">
+												<img class="profile-pic" ng-src="{{currentPhotoUrl}}" alt="Avatar" />
+												<div class="upload-button" ng-click="handleUploadClick()">
+													<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+												</div>
+												<input class="file-upload" type="file" id="fileInput"
+													accept="image/*" />
+											</div>
+
+											<h5 style="margin-bottom: 1rem; font-weight: 900; font-size: 2.9rem;">
+												<strong id="AccountID">{{account.username}}</strong>
+											</h5>
+											<p class="text-muted" style="font-size: 1.8rem;">
+												<i>#{{account.role}}</i>
+											</p>
+										</div>
+
+										<h4>THÔNG TIN TÀI KHOẢN</h4>
+
+										<div class="row">
+											<div class="col-sm-6">
+												<label>Họ và tên *</label> <input type="text"
+													ng-model="account.fullname" class="form-control"
+													ng-class="{'is-invalid': (accountInfo.fullname.$invalid && accountInfo.fullname.$touched) || (accountInfo.$submitted && accountInfo.fullname.$invalid) || (accountInfo.$submitted && isValidFullname)}"
+													name="fullname" required
+													ng-pattern="/^(([a-zA-Z\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\s\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$/">
+												<div class="mb-1 text-danger font-weight-bold">
+													<div
+														ng-show="(accountInfo.fullname.$error.required && accountInfo.fullname.$touched) || (accountInfo.$submitted && accountInfo.fullname.$error.required)">
+														Họ và tên không được để trống!
+													</div>
+													<div
+														ng-show="(accountInfo.fullname.$error.pattern && accountInfo.fullname.$touched) || (accountInfo.$submitted && accountInfo.fullname.$error.pattern)">
+														Họ và tên không được chứa số và kí tự đặc biệt!
+													</div>
+												</div>
+												<!-- End Error Fullname-->
+											</div>
+											<!-- End .col-sm-6 -->
+
+											<div class="col-sm-6">
+												<label>Email</label> <input type="email" ng-model="account.email"
+													class="form-control" required>
+											</div>
+											<!-- End .col-sm-6 -->
+										</div>
+										<!-- End .row -->
+										<div class="row" ng-repeat="(key, location) in locations">
+											<div class="col-sm-8">
+												<label>Địa chỉ {{location.type}} * {{location.addressDefault ? "(Địa chỉ
+													nhận hàng)" : ""}}</label> <input type="text"
+													ng-model="location.address" class="form-control" required readonly>
+											</div>
+											<div class="col-sm-3">
+												<label>Số điện thoại nhận hàng {{key + 1}} *</label> <input type="text"
+													ng-model="location.phone" class="form-control" required readonly>
+											</div>
+											<div class="col-sm-1 d-flex flex-column justify-content-center text-center">
+												<a type="button" ng-click="fillDataModal(key, 'edit')">
+													<i class="fas fa-edit"
+														style="font-size: 1.7em; padding-top: 0.8em; cursor: pointer;"></i>
+												</a>
+											</div>
+
+										</div>
+										<div class="d-flex mt-1" ng-if="locations.length < 2">
+											<a type="button" class="btn btn-outline-primary-2"
+												ng-click="fillDataModal($event, 'add')" style="height: 40px;">
+												<span>THÊM ĐỊA CHỈ</span> <i
+													class="fa-sharp fa-light fa-plus fa-xl"></i>
+											</a>
+										</div>
+										<div class="d-flex mt-2 flex-row-reverse">
+											<button type="submit" class="btn btn-outline-primary-2">
+												<span>LƯU THAY ĐỔI</span> <i class="icon-long-arrow-right"></i>
+											</button>
+										</div>
+									</form>
+
+									<h4 class="mt-2 mb-2" ng-if="account.type == null || account.type == ''">ĐỔI MẬT
+										KHẨU</h4>
+									<form ng-if="account.type == null || account.type == ''" name="changePass"
+										id="changePassForm" ng-submit="changePassSubmit()" novalidate>
+										<div class="row">
+											<div class="col">
+												<label>Mật khẩu hiện tại *</label> <input type="password"
+													ng-model="formPasword.password" class="form-control"
+													ng-class="{'is-invalid': (changePass.currentPassword.$invalid && changePass.currentPassword.$touched) || (changePass.$submitted && changePass.currentPassword.$invalid) || (changePass.$submitted && isValidCurrentPass)}"
+													name="currentPassword" required ng-trim="false"
+													ng-change="currentPassChange()" ng-pattern="/^\S+$/">
+												<div class="mt-1 text-danger font-weight-bold">
+													<div
+														ng-show="(changePass.currentPassword.$error.required && changePass.currentPassword.$touched) || (changePass.$submitted && changePass.currentPassword.$error.required)">
+														Mật khẩu không được để trống!
+													</div>
+													<div
+														ng-show="(changePass.currentPassword.$error.pattern && changePass.currentPassword.$touched) || (changePass.$submitted && changePass.currentPassword.$error.pattern)">
+														Mật khẩu không được chứa khoảng trắng!
+													</div>
+													<div ng-show="(changePass.$submitted && isValidCurrentPass)">
+														{{CurrentPassError}}
+													</div>
+												</div>
+												<!-- End Error Current Password-->
+											</div>
+											<!-- End .col-sm-6 -->
+										</div>
+										<div class="row">
+											<div class="col-sm-6">
+												<label>Mật khẩu mới *</label> <input type="password"
+													ng-model="formPasword.newPass" class="form-control"
+													ng-class="{'is-invalid': (changePass.newPass.$invalid && changePass.newPass.$touched) || (changePass.$submitted && changePass.newPass.$invalid) || (changePass.$submitted && isValidNewPass)}"
+													name="newPass" required ng-trim="false" ng-pattern="/^\S+$/">
+												<div class="mt-1 text-danger font-weight-bold">
+													<div
+														ng-show="(changePass.newPass.$error.required && changePass.newPass.$touched) || (changePass.$submitted && changePass.newPass.$error.required)">
+														Mật khẩu mới không được để trống!
+													</div>
+													<div
+														ng-show="(changePass.newPass.$error.pattern && changePass.newPass.$touched) || (changePass.$submitted && changePass.newPass.$error.pattern)">
+														Mật khẩu mới không được chứa khoảng trắng!
+													</div>
+													<div ng-show="(changePass.$submitted && isValidNewPass)">
+														{{NewPassError}}
+													</div>
+												</div>
+												<!-- End Error Current Password-->
+											</div>
+											<!-- End .col-sm-6 -->
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label>Xác nhận mật khẩu mới *</label>
+													<input type="password" class="form-control"
+														ng-model="formPasword.confirmPass"
+														ng-class="{'is-invalid': (passwordMatchError && changePass.confirmPass.$touched) || (changePass.$submitted && passwordMatchError)}"
+														name="confirmPass" required ng-change="checkPasswordMatch()">
+													<div class="mb-1 text-danger font-weight-bold">
+														<div ng-show="passwordMatchError">
+															Mật khẩu không khớp!
+														</div>
+													</div>
+													<!-- End Error Password-->
+												</div>
+											</div>
+											<!-- End .col-sm-6 -->
+										</div>
+
+										<div class="d-flex flex-row-reverse">
+											<button type="submit" class="btn btn-outline-primary-2">
+												<span>LƯU THAY ĐỔI</span> <i class="icon-long-arrow-right"></i>
+											</button>
+										</div>
+									</form>
+								</div>
+								<!-- .End .tab-pane -->
+
+								<div class="tab-pane fade"
+									ng-class="{show: selectedTab === 'tab-orders', active: selectedTab === 'tab-orders'}"
+									id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+									<div ng-if="orders === null || orders === undefine || orders.length == 0">
+										<p>Chưa có đơn đặt hàng nào được thực hiện.</p>
+										<a href="/shop" class="btn btn-outline-primary-2"><span>ĐẾN TRANG CỬA
+												HÀNG</span><i class="icon-long-arrow-right"></i></a>
+									</div>
+									<table class="table table-bordered text-center"
+										ng-if="orders != null && orders != undefine && orders.length > 0">
+										<caption
+											style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800;">
+											LỊCH SỬ ĐƠN HÀNG</caption>
+										<thead>
+											<tr>
+												<th scope="col">Mã đơn hàng</th>
+												<th scope="col">Ngày mua</th>
+												<th scope="col">Số điện thoại</th>
+												<th scope="col">Tổng tiền</th>
+												<th scope="col">Thanh toán</th>
+												<th scope="col">Trạng thái</th>
+												<th scope="col"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="order in displayedItems">
+												<td>{{order.orderId}}</td>
+												<td>{{order.createDate | dateFormat}}</td>
+												<td>{{order.phone}}</td>
+												<td>{{order.totalPrice | vndFormat}}</td>
+												<td>{{order.paymentType}}</td>
+												<td>{{order.orderStatus}}</td>
+												<td><a class="btn btn-outline-primary-2" type="button"
+														ng-click="openModalOrder($event, order.id)"
+														style="min-width: 30px; border-radius: 10%; cursor: pointer; padding: 0.55rem 1rem;">Chi
+														tiết</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<nav aria-label="Page navigation"
+										ng-if="orders != null && orders != undefine && orders.length > 0">
+										<ul class="pagination d-flex justify-content-center">
+											<li class="page-item" ng-class="{ disabled: currentPage === 1 }">
+												<button class="page-link page-link-prev" aria-label="Previous"
+													ng-click="previousPage()" tabindex="-1"
+													aria-disabled="{{currentPage === 1}}">
+													<span aria-hidden="true"><i
+															class="icon-long-arrow-left"></i></span>Trước
+												</button>
+											</li>
+											<li class="page-item"
+												ng-repeat="pNum in getPageRange(totalPages) track by $index"
+												ng-class="{ active: ($index + 1) === currentPage }">
+												<button class="page-link" ng-click="get_ByPage($index + 1)">{{$index +
+													1}}</button>
+											</li>
+											<li class="page-item-total">của {{totalPages}}</li>
+											<li class="page-item" ng-class="{ disabled: currentPage === totalPages }">
+												<button class="page-link page-link-next" aria-label="Next"
+													ng-click="nextPage()">Sau
+													<span aria-hidden="true"><i
+															class="icon-long-arrow-right"></i></span>
+												</button>
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!-- .End .tab-pane -->
+
+								<div class="tab-pane fade"
+									ng-class="{show: selectedTab === 'tab-coupons', active: selectedTab === 'tab-coupons'}"
+									id="tab-coupons" role="tabpanel" aria-labelledby="tab-coupons-link">
+									<div ng-if="coupons === null || coupons === undefine || coupons.length == 0">
+										<p>Bạn không sở hữu một mã giảm giá nào!.</p>
+									</div>
+									<table class="table table-bordered text-center"
+										ng-if="coupons != null && coupons != undefine && coupons.length > 0">
+										<caption
+											style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800;">
+											MÃ GIẢM GIÁ CỦA TÔI</caption>
+										<thead>
+											<tr>
+												<th scope="col">Mã giảm giá</th>
+												<th scope="col">Tên giảm giá</th>
+												<th scope="col">Giá giảm</th>
+												<th scope="col">đơn hàng tối thiểu</th>
+												<th scope="col">Ngày bắt đầu</th>
+												<th scope="col">Ngày kết thúc</th>
+												<th scope="col">Trạng thái</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="coupon in displayedItemCoupons">
+												<td>{{coupon.code}}</td>
+												<td style="width: 23%; padding: 0.5em;">{{coupon.couponName}}</td>
+												<td>{{coupon.value | vndFormat}}</td>
+												<td>{{coupon.minSpend ? coupon.minSpend : "0" | vndFormat}}</td>
+												<td>{{coupon.mfgDate | dateFormat}}</td>
+												<td>{{coupon.expDate | dateFormat}}</td>
+												<td>{{coupon.isUsed ? "Đã sử dụng" : "Chưa sử dụng"}}</td>
+											</tr>
+										</tbody>
+									</table>
+									<nav aria-label="Page navigation"
+										ng-if="coupons != null && coupons != undefine && coupons.length > 0">
+										<ul class="pagination d-flex justify-content-center">
+											<li class="page-item" ng-class="{ disabled: currentPageCoupon === 1 }">
+												<button class="page-link page-link-prev" aria-label="Previous"
+													ng-click="previousPageCoupon()" tabindex="-1"
+													aria-disabled="{{currentPageCoupon === 1}}">
+													<span aria-hidden="true"><i
+															class="icon-long-arrow-left"></i></span>Trước
+												</button>
+											</li>
+											<li class="page-item"
+												ng-repeat="pNum in getPageRangeCoupon(totalPageCoupons) track by $index"
+												ng-class="{ active: ($index + 1) === currentPageCoupon }">
+												<button class="page-link"
+													ng-click="get_ByPageCoupon($index + 1)">{{$index +
+													1}}</button>
+											</li>
+											<li class="page-item-total">của {{totalPageCoupons}}</li>
+											<li class="page-item"
+												ng-class="{ disabled: currentPageCoupon === totalPageCoupons }">
+												<button class="page-link page-link-next" aria-label="Next"
+													ng-click="nextPageCoupon()">Sau
+													<span aria-hidden="true"><i
+															class="icon-long-arrow-right"></i></span>
+												</button>
+											</li>
+										</ul>
+									</nav>
+								</div>
+								<!-- .End .tab-pane -->
+							</div>
+						</div>
+						<!-- End .col-lg-9 -->
+					</div>
+					<!-- End .row -->
+				</div>
+				<!-- End .container -->
+			</div>
+			<!-- End .dashboard -->
+		</div>
+		<!-- End .page-content -->
+
+		<!-- Modal Detail order-->
+		<div class="modal fade" id="order-modal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 60% !important;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+							<!-- Thêm sự kiện ng-click và gọi hàm changeTab($event) -->
+							<li class="nav-item"><a class="nav-link" id="order-tab"
+									ng-click="changeTab($event, 'order')" role="tab" aria-controls="order"
+									ng-class="{active: activeTab === 'order'}">Thông tin đơn hàng</a></li>
+							<li class="nav-item"><a class="nav-link" id="order-detail-tab"
+									ng-click="changeTab($event, 'order-detail')" role="tab" aria-controls="order-detail"
+									ng-class="{active: activeTab === 'order-detail'}">Chi tiết đơn hàng</a></li>
+							<li class="nav-item" id="tabTitleFeedback"><a class="nav-link" id="feedback-tab"
+									ng-click="changeTab($event, 'feedback')" role="tab" aria-controls="feedback"
+									ng-class="{active: activeTab === 'feedback'}">Đánh giá sản phẩm</a></li>
+						</ul>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div ng-show="activeTab === 'order'" class="p-4">
+							<h4
+								style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800; margin-top: 1em;">
+								THÔNG TIN ĐƠN HÀNG</h4>
+							<table class="table table-bordered text-center">
+								<caption
+									style="caption-side: top; text-align: left; font-size: 2rem; font-weight: 500;">
+									THÔNG TIN ĐƠN HÀNG</caption>
+								<thead>
+									<tr>
+										<th scope="col">Mã đơn hàng</th>
+										<th scope="col">Ngày mua</th>
+										<th scope="col">Ghi chú</th>
+										<th scope="col">Trạng thái đơn hàng</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{order.orderId}}</td>
+										<td>{{order.createDate | dateFormat}}</td>
+										<td>{{order.note}}</td>
+										<td>{{order.orderStatus}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-bordered text-center">
+								<caption
+									style="caption-side: top; text-align: left; font-size: 2rem; font-weight: 500;">
+									THÔNG TIN KHÁCH HÀNG</caption>
+								<thead>
+									<tr>
+										<th scope="col">Họ và tên</th>
+										<th scope="col">Số điện thoại</th>
+										<th scope="col">Email</th>
+										<th scope="col">Địa chỉ nhận hàng</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{order.fullname}}</td>
+										<td>{{order.phone}}</td>
+										<td>{{order.email}}</td>
+										<td style="width: 62%;">{{order.address}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-bordered text-center">
+								<caption
+									style="caption-side: top; text-align: left; font-size: 2rem; font-weight: 500;">
+									THÔNG TIN THANH TOÁN</caption>
+								<thead>
+									<tr>
+										<th scope="col">Phí vận chuyển</th>
+										<th scope="col">Mã giảm giá</th>
+										<th scope="col">Số lượng</th>
+										<th scope="col">Tổng tiền</th>
+										<th scope="col">Thanh toán</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{order.shippingFee}}</td>
+										<td>{{order.couponCode}}</td>
+										<td>{{order.qty}}</td>
+										<td>{{order.totalPrice | vndFormat}}</td>
+										<td>{{order.paymentType}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div ng-show="activeTab === 'order-detail'" class="p-4">
+							<h4
+								style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800; margin-top: 1em; margin-bottom: 1em;">
+								CHI TIẾT ĐƠN HÀNG</h4>
+							<table class="table table-bordered text-center">
+								<thead>
+									<tr>
+										<th scope="col">Hình</th>
+										<th scope="col">Tên sản phẩm</th>
+										<th scope="col">Số lượng</th>
+										<th scope="col">Đơn giá</th>
+										<th scope="col" ng-if="order.orderStatus === 'Đã hoàn thành'"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="product in orderDetails">
+										<td class="d-flex justify-content-center"><img
+												src="https://drive.google.com/uc?id={{product.productPoster ? product.productPoster : '1k7mZ306aaQltWZVJBe-zbXizg2NmAogx'}}"
+												alt="Product image" class="product-image"
+												style="width: auto; height: 160px;"></td>
+										<td>{{product.productName}}</td>
+										<td>{{product.qty}}</td>
+										<td>{{product.price | vndFormat}}</td>
+										<td ng-if="order.orderStatus === 'Đã hoàn thành'"><a
+												class="btn btn-outline-primary-2" type="button"
+												ng-click="openTabFeedBack($event, product.productId, product.productName)"
+												style="min-width: 30px; border-radius: 10%; cursor: pointer; padding: 0.55rem 1rem;">Đánh
+												giá</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div ng-show="activeTab === 'feedback'" id="tabFeedback">
+							<h4
+								style="caption-side: top; text-align: center; font-size: 3rem; font-weight: 800; margin-top: 1em;">
+								ĐÁNH GIÁ SẢN PHẨM</h4>
+							<h5 class="text-center" style="font-size: 2rem; font-weight: 700">{{productFeedbackName}}</h5>
+							<div class="row d-flex justify-content-center mb-4 mt-4">
+								<div ng-repeat="star in stars" ng-click="setRating(star)"
+									style="display: inline-block;">
+									<i class="star fa-solid fa-star"
+										ng-class="{'active': star.filled, 'far': !star.filled, 'hovered': star.hovered}"></i>
+								</div>
+							</div>
+							<div class="row d-flex justify-content-center">
+								<textarea class="form-control" cols="10" rows="2" ng-model="feedback.content" style="width: 90%;"
+									placeholder="Để lại đánh giá của bạn về sản phẩm"></textarea>
+							</div>
+							<div class="row d-flex justify-content-center pb-5 pt-2">
+								<button type="button" class="btn btn-outline-primary-2" ng-click="feedbackSubmit()">
+									<span>{{buttonFeedback}}</span> <i class="icon-long-arrow-right"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<!-- End .modal-body -->
+				</div><!-- End .modal-content -->
+			</div><!-- End .modal-dialog -->
+		</div><!-- End .modal -->
+
+		<!-- Add Address Modal -->
+		<div class="modal fade" id="address-modal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 60% !important;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">{{title}}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form class="p-4" name="addressForm" id="addressForm" novalidate>
+							<div class="row ml-1">
+								<div class="col-4-sm">
+									<label>Loại địa chỉ *</label>
+									<select class="form-control" ng-model="locationForm.type" id="typeAddressModal">
+										<option value="Nhà Riêng" selected>Nhà riêng</option>
+										<option value="Văn Phòng">Văn phòng</option>
+									</select>
+								</div>
+								<div class="col-4-sm pl-5 d-flex justify-content-center mt-2">
+									<div class="form-check-inline">
+										<label class="form-check-label">
+											<input type="checkbox" class="form-check-input mr-3" value=""
+												id="addressDefaultModal" ng-model="locationForm.addressDefault"
+												ng-checked="locationForm.addressDefault">Chọn làm địa chỉ giao hàng mặc
+											định
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-7">
+									<label>Địa chỉ *</label> <input type="text" ng-model="locationForm.address"
+										ng-class="{'is-invalid': (addressForm.address.$invalid && addressForm.address.$touched) || (addressForm.$submitted && addressForm.address.$invalid)}"
+										name="address" class="form-control mb-1" required id="inputAddress">
+									<div class="mb-1 text-danger font-weight-bold">
+										<div
+											ng-show="(addressForm.address.$error.required && addressForm.address.$touched) || (addressForm.$submitted && addressForm.address.$error.required)">
+											Địa chỉ không được để trống!
+										</div>
+									</div>
+									<!-- End Error address-->
+								</div>
+								<div class="col-sm-5">
+									<label>Số điện thoại nhận hàng *</label> <input type="text"
+										ng-model="locationForm.phone" class="form-control mb-1"
+										ng-class="{'is-invalid': (addressForm.phone.$invalid && addressForm.phone.$touched) || (addressForm.$submitted && addressForm.phone.$invalid)}"
+										name="phone" required
+										ng-pattern="/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/">
+									<div class="mb-1 text-danger font-weight-bold">
+										<div
+											ng-show="(addressForm.phone.$error.required && addressForm.phone.$touched) || (addressForm.$submitted && addressForm.phone.$error.required)">
+											Số điện thoại không được để trống!
+										</div>
+										<div
+											ng-show="(addressForm.phone.$error.pattern && addressForm.phone.$touched) || (addressForm.$submitted && addressForm.phone.$error.pattern)">
+											Số điện thoại không đúng định dạng!
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<label>Tỉnh/Thành phố *</label>
+									<select class="form-control mb-1" id="province" ng-model="locationForm.province"
+										ng-change="updateProvince()" name="province"
+										ng-options="option.code as option.name for option in provinces" required
+										ng-class="{'is-invalid-no-x': (addressForm.province.$invalid && addressForm.province.$touched) || (addressForm.$submitted && addressForm.province.$invalid)}">
+										<option value="" selected disabled>Chọn Thành phố</option>
+									</select>
+									<!-- End .form-group -->
+									<div class="mb-1 text-danger font-weight-bold">
+										<div
+											ng-show="(addressForm.province.$error.required && addressForm.province.$touched) || (addressForm.$submitted && addressForm.province.$error.required)">
+											Vui lòng chọn Tỉnh/Thành phố!
+										</div>
+									</div>
+									<!-- End Error address-->
+								</div>
+								<!-- End .col-sm-4 -->
+
+								<div class="col-sm-4">
+									<label>Quận/Huyện *</label>
+									<select class="form-control mb-1" id="district" ng-model="locationForm.district"
+										ng-options="district.code as district.name for district in districts"
+										name="district" ng-change="updateDistrict()"
+										ng-disabled="selectedDistrict === false" required
+										ng-class="{'is-invalid-no-x': (addressForm.district.$invalid && addressForm.district.$touched) || (addressForm.$submitted && addressForm.district.$invalid)}">
+										<option value="" selected disabled>Chọn Quận/Huyện</option>
+									</select>
+									<!-- End .form-group -->
+									<div class="mb-1 text-danger font-weight-bold">
+										<div
+											ng-show="(addressForm.district.$error.required && addressForm.district.$touched) || (addressForm.$submitted && addressForm.district.$error.required)">
+											Vui lòng chọn Quận/Huyện!
+										</div>
+									</div>
+									<!-- End Error address-->
+								</div>
+								<!-- End .col-sm-4 -->
+
+								<div class="col-sm-4">
+									<label>Phường/Xã *</label>
+									<select class="form-control mb-1" id="ward" ng-model="locationForm.ward"
+										ng-options="option.code as option.name for option in wards" name="ward"
+										ng-change="updateWard()" ng-disabled="selectedWard === false" required
+										ng-class="{'is-invalid-no-x': (addressForm.ward.$invalid && addressForm.ward.$touched) || (addressForm.$submitted && addressForm.ward.$invalid)}">
+										<option value="" selected disabled>Chọn Xã/Phường</option>
+									</select>
+									<!-- End .form-group -->
+									<div class="mb-1 text-danger font-weight-bold">
+										<div
+											ng-show="(addressForm.ward.$error.required && addressForm.ward.$touched) || (addressForm.$submitted && addressForm.ward.$error.required)">
+											Vui lòng chọn Xã/Phường!
+										</div>
+									</div>
+									<!-- End Error address-->
+								</div>
+								<!-- End .col-sm-4 -->
+
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="changeAddress">{{button}}</button>
+					</div>
+					<!-- End .modal-body -->
+				</div><!-- End .modal-content -->
+			</div><!-- End .modal-dialog -->
+		</div><!-- End .modal -->
+		<div id="toast"></div>
+	</main>
+
+</div>

@@ -1,0 +1,798 @@
+<!-- Header -->
+<div ng-include="'/templates/header.html'"></div>
+<!-- /Header -->
+
+<!-- Sidebar -->
+<div ng-include="'/templates/sidebar.html'"></div>
+<!-- /Sidebar -->
+
+<!-- Page Wrapper -->
+<div class="page-wrapper" ng-controller="ProductController">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">DANH SÁCH SẢN PHẨM</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Trang Chủ</a></li>
+                        <li class="breadcrumb-item active">Danh Sách Sản Phẩm</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-right ml-auto">
+                    <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_Product"><i
+                            class="fa fa-plus"></i>Thêm Sản Phẩm</a>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+        <div class="row filter-row">
+            <div class="col-sm-6 col-md-2">
+                <div class="form-group form-focus">
+                    <input type="text" class="form-control floating" id="productNameSearch"
+                        ng-keydown="searchWithEnter($event)">
+                    <label class="focus-label">Tên Sản Phẩm</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-2">
+                <div class="form-group form-focus cal-icon">
+                    <input type="text" class="form-control floating datetimepicker" id="searchCreateDate"
+                        ng-keydown="searchWithEnter($event)" ng-keydown="searchWithEnter($event)">
+                    <label class="focus-label">Ngày Tạo</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-2">
+                <div class="form-group form-focus select-focus">
+                    <label class="focus-label">Loại Sản Phẩm</label>
+                    <select class="form-control" id="searchTitle">
+                        <option value="" selected>--Chọn Loại Sản Phẩm--</option>
+                        <option value="Game">Game</option>
+                        <option value="PK">Phụ kiện</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-2">
+                <a href="#" class="btn btn-success btn-block" ng-click="searchProduct()">Tìm Kiếm</a>
+            </div>
+            <div class="col-sm-6 col-md-2">
+                <a href="#" class="btn btn-success btn-block" ng-click="refreshSearch()">Làm Mới</a>
+            </div>
+            <div class="col-sm-6 col-md-2">
+                <a href="#" class="btn btn-success btn-block" ng-click="downloadExcel()">Tạo File Excel</a>
+            </div>
+        </div>
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable" id="tableProduct">
+                        <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <td class="text-center">Ảnh Áp Phích</td>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Giá gốc</th>
+                                <th>Giá Bán</th>
+                                <th>Giảm Giá (%)</th>
+                                <th>Nhà Phát Hành</th>
+                                <th class="text-nowrap">Ngày Tạo</th>
+                                <th>Loại Sản Phẩm</th>
+                                <th>Số Lượng</th>
+                                <th class="text-right no-sort">Hoạt Động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+    <!-- Add Product Modal -->
+    <div id="add_Product" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm Sản Phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <form name="formAddProduct" id="formAddProduct" novalidate ng-submit="addProduct()">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Tên Sản Phẩm <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" ng-model="addProductForm.name"
+                                                ng-class="{'is-invalid': (formAddProduct.productName.$invalid && formAddProduct.productName.$touched) || (formAddProduct.$submitted && formAddProduct.productName.$invalid) || (formAddProduct.$submitted && isValidProductName)}"
+                                                name="productName" required
+                                                ng-pattern="/^(([a-zA-Z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z0-9\s\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$/">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formAddProduct.productName.$error.required && formAddProduct.productName.$touched) || (formAddProduct.$submitted && formAddProduct.productName.$error.required)">
+                                                Tên sản phẩm không được để trống!
+                                            </div>
+                                            <div
+                                                ng-show="(formAddProduct.productName.$error.pattern && formAddProduct.productName.$touched) || (formAddProduct.$submitted && formAddProduct.productName.$error.pattern)">
+                                                Tên sản phẩm không được chứa ký tự đặc biệt!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Product Name-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Giá Gốc <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="number"
+                                                ng-model="addProductForm.originPrice"
+                                                ng-class="{'is-invalid': (formAddProduct.originPrice.$invalid && formAddProduct.originPrice.$touched) || (formAddProduct.$submitted && formAddProduct.originPrice.$invalid) || (formAddProduct.$submitted && isValidOriginPrice)}"
+                                                name="originPrice" required min="1">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formAddProduct.originPrice.$error.required && formAddProduct.originPrice.$touched) || (formAddProduct.$submitted && formAddProduct.originPrice.$error.required)">
+                                                Giá gốc không được để trống!
+                                            </div>
+                                            <div
+                                                ng-show="(formAddProduct.originPrice.$error.min && formAddProduct.originPrice.$touched) || (formAddProduct.$submitted && formAddProduct.originPrice.$error.min)">
+                                                Giá gốc phải lớn hơn 0!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Origin price-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Giá Bán<span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="number"
+                                                ng-model="addProductForm.salePrice"
+                                                ng-class="{'is-invalid': (formAddProduct.salePrice.$invalid && formAddProduct.salePrice.$touched) || (formAddProduct.$submitted && formAddProduct.salePrice.$invalid) || (formAddProduct.$submitted && isValidSalePrice)}"
+                                                name="salePrice" required min="1">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formAddProduct.salePrice.$error.required && formAddProduct.salePrice.$touched) || (formAddProduct.$submitted && formAddProduct.salePrice.$error.required)">
+                                                Giá bán không được để trống!
+                                            </div>
+                                            <div
+                                                ng-show="(formAddProduct.salePrice.$error.min && formAddProduct.salePrice.$touched) || (formAddProduct.$submitted && formAddProduct.salePrice.$error.min)">
+                                                Giá bán phải lớn hơn 0!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Sale price-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Giảm Giá (%) <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" ng-model="addProductForm.offer"
+                                                ng-class="{'is-invalid': (formAddProduct.offer.$invalid && formAddProduct.offer.$touched) || (formAddProduct.$submitted && formAddProduct.offer.$invalid)}"
+                                                name="offer" required pattern="^0(\.[0-9]+)?$|^1\.0$"
+                                                inputmode="decimal" min="0" max="1.0">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formAddProduct.offer.$error.required && formAddProduct.offer.$touched) || (formAddProduct.$submitted && formAddProduct.offer.$error.required)">
+                                                Giảm Giá (%) không được để trống!
+                                            </div>
+                                            <div
+                                                ng-show="formAddProduct.offer.$error.pattern && (formAddProduct.offer.$touched || formAddProduct.$submitted)">
+                                                Giảm Giá (%) nằm trong khoản 0 đến 1.0!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Offer-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Loại Sản Phẩm <span
+                                                    class="text-danger">*</span></label>
+                                            <select class="form-control" ng-model="addProductForm.type"
+                                                ng-required="true" name="type" ng-change="typeAdd()"
+                                                ng-class="{'is-invalid-no-x': isValidTypeFormAdd}">
+                                                <option value="">Chọn Loại Sản Phẩm</option>
+                                                <option value="Game">Game</option>
+                                                <option value="PK">Phụ kiện</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div ng-show="isValidTypeFormAdd">
+                                                Loại Sản Phẩm là bắt buộc. Vui lòng chọn một lựa chọn!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Type-->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Danh Mục Sản Phẩm <span
+                                                    class="text-danger">*</span></label>
+                                            <select class="form-control" ng-model="addProductForm.category.id"
+                                                ng-required="true" name="category" ng-change="categoryAdd()"
+                                                ng-options="category.id as category.name for category in categories"
+                                                ng-class="{'is-invalid-no-x': isValidCategoryFormAdd}">
+                                                <option value="">Chọn Danh Mục Sản Phẩm</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div ng-show="isValidCategoryFormAdd">
+                                                Danh mục là bắt buộc. Vui lòng chọn một lựa chọn!
+                                            </div>
+                                        </div>
+                                        <!-- End Error category-->
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label d-block mb-2">Trạng Thái Sản Phẩm <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                    id="inlineRadio1" value="true" ng-model="addProductForm.available"
+                                                    checked>
+                                                <label class="form-check-label" for="inlineRadio1">Còn Hàng</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                    id="inlineRadio2" value="false" ng-model="addProductForm.available">
+                                                <label class="form-check-label" for="inlineRadio2">Hết Hàng</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div ng-show="isValidAvailableFormAdd">
+                                                Trạng thái sản phảm là bắt buộc. Vui lòng chọn một lựa chọn!
+                                            </div>
+                                        </div>
+                                        <!-- End Error category-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Số Lượng <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="number" ng-model="addProductForm.qty"
+                                                ng-class="{'is-invalid': (formAddProduct.quantity.$invalid && formAddProduct.quantity.$touched) || (formAddProduct.$submitted && formAddProduct.quantity.$invalid) || (formAddProduct.$submitted && isValidQuantity)}"
+                                                name="quantity" required min="1" step="any"
+                                                ng-pattern="/^(?!0(\.0*)?$)([1-9]\d*|0)(\.\d+)?$/">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formAddProduct.quantity.$error.required && formAddProduct.quantity.$touched) || (formAddProduct.$submitted && formAddProduct.quantity.$error.required)">
+                                                Số lượng không được để trống!
+                                            </div>
+                                            <div
+                                                ng-show="(formAddProduct.quantity.$error.pattern && formAddProduct.quantity.$touched) || (formAddProduct.$submitted && formAddProduct.quantity.$error.pattern)">
+                                                Số lượng không hợp lệ! Vui lòng nhập một số hợp lệ và phải lớn hơn 0!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Quantity -->
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Nhà Phát Hành <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" ng-model="addProductForm.source"
+                                                ng-class="{'is-invalid': (formAddProduct.source.$invalid && formAddProduct.source.$touched) || (formAddProduct.$submitted && formAddProduct.source.$invalid) || (formAddProduct.$submitted && isValidSource)}"
+                                                name="source" required>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formAddProduct.source.$error.required && formAddProduct.source.$touched) || (formAddProduct.$submitted && formAddProduct.source.$error.required)">
+                                                Nhà phát hành không được để trống!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Source -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Đường Dẫn<span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" ng-model="addProductForm.link"
+                                                ng-class="{'is-invalid': (formAddProduct.link.$invalid && formAddProduct.link.$touched) || (formAddProduct.$submitted && formAddProduct.link.$invalid) || (formAddProduct.$submitted && isValidLink)}"
+                                                name="link" required>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formAddProduct.link.$error.required && formAddProduct.link.$touched) || (formAddProduct.$submitted && formAddProduct.link.$error.required)">
+                                                Đường Dẫn không được trống!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Source -->
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Mô Tả Sản Phẩm<span class="text-danger">*</span></label>
+                                            <textarea class="form-control" rows="5" ng-model="addProductForm.details"
+                                                ng-class="{'is-invalid': (formAddProduct.description.$invalid && formAddProduct.description.$touched) || (formAddProduct.$submitted && formAddProduct.description.$invalid) || (formAddProduct.$submitted && isValidDescription)}"
+                                                name="description" required></textarea>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formAddProduct.description.$error.required && formAddProduct.description.$touched) || (formAddProduct.$submitted && formAddProduct.description.$error.required)">
+                                                Mô tả sản phẩm không được trống!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Description -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-12 col-md-4 theme-blush">
+                            <h4 class="d-flex justify-content-center">Ảnh Áp Phích</h4>
+                            <div class="card border-0">
+                                <div class="body d-flex justify-content-center">
+                                    <input type="file" class="dropify" id="posterImage" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row d-flex justify-content-center">
+                                        <h4 class="">Ảnh Thu Nhỏ</h4>
+                                        <h5 class="text-danger fs-3 mt-1 ml-2">*Chỉ Được 3 Ảnh Thu Nhỏ*</h5>
+                                    </div>
+                                    <div class="row d-flex flex-row-reverse mr-3 mb-2">
+                                        <h5 class="text-danger fs-3 mt-1 ml-2" style="cursor: pointer;"
+                                            id="refreshThumbnail">Xóa Tất Cả Ảnh Thu Nhỏ
+                                        </h5>
+                                    </div>
+
+                                    <!-- Directive Dropzone sẽ được gọi ở đây -->
+                                    <dropzone thumbnails="thumbnailsList" max-files="3"></dropzone>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <button type="submit" class="btn btn-primary submit-btn" form="formAddProduct">Thêm Sản
+                            Phẩm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Product Modal -->
+
+    <!-- Edit Product Modal -->
+    <div id="edit_Product" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chỉnh Sửa Sản Phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <form name="formEditProduct" novalidate>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Tên Sản Phẩm <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" ng-model="editProduct.name"
+                                                ng-class="{'is-invalid': (formEditProduct.productName.$invalid && formEditProduct.productName.$touched) || (formEditProduct.$submitted && formEditProduct.productName.$invalid) || (formEditProduct.$submitted && isValidProductName)}"
+                                                name="productName" required
+                                                ng-pattern="/^(([a-zA-Z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z0-9\s\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z0-9\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$/">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formEditProduct.productName.$error.required && formEditProduct.productName.$touched) || (formEditProduct.$submitted && formEditProduct.productName.$error.required)">
+                                                Tên Sản Phẩm không được trống!
+                                            </div>
+                                            <div
+                                                ng-show="(formEditProduct.productName.$error.pattern && formEditProduct.productName.$touched) || (formEditProduct.$submitted && formEditProduct.productName.$error.pattern)">
+                                                Tên Sản Phẩm không chứa kí tự đặc biệt!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Product Name-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Giá Gốc <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="number" ng-model="editProduct.originPrice"
+                                                ng-class="{'is-invalid': (formEditProduct.originPrice.$invalid && formEditProduct.originPrice.$touched) || (formEditProduct.$submitted && formEditProduct.originPrice.$invalid) || (formEditProduct.$submitted && isValidOriginPrice)}"
+                                                name="originPrice" required min="1">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formEditProduct.originPrice.$error.required && formEditProduct.originPrice.$touched) || (formEditProduct.$submitted && formEditProduct.originPrice.$error.required)">
+                                                Giá Gốc không được trống!
+                                            </div>
+                                            <div
+                                                ng-show="(formEditProduct.originPrice.$error.min && formEditProduct.originPrice.$touched) || (formEditProduct.$submitted && formEditProduct.originPrice.$error.min)">
+                                                Giá Gốc phải lớn hơn 0!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Origin price-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Giá Bán <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="number" ng-model="editProduct.salePrice"
+                                                ng-class="{'is-invalid': (formEditProduct.salePrice.$invalid && formEditProduct.salePrice.$touched) || (formEditProduct.$submitted && formEditProduct.salePrice.$invalid) || (formEditProduct.$submitted && isValidSalePrice)}"
+                                                name="salePrice" required min="1">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formEditProduct.salePrice.$error.required && formEditProduct.salePrice.$touched) || (formEditProduct.$submitted && formEditProduct.salePrice.$error.required)">
+                                                Giá Bán không được trống!
+                                            </div>
+                                            <div
+                                                ng-show="(formEditProduct.salePrice.$error.min && formEditProduct.salePrice.$touched) || (formEditProduct.$submitted && formEditProduct.salePrice.$error.min)">
+                                                Giá bán phải lớn hơn 0!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Sale price-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Giảm Giá (%)<span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" ng-model="editProduct.offer"
+                                                ng-class="{'is-invalid': (formEditProduct.offer.$invalid && formEditProduct.offer.$touched) || (formEditProduct.$submitted && formEditProduct.offer.$invalid)}"
+                                                name="offer" required pattern="^0(\.[0-9]+)?$|^1\.0$"
+                                                inputmode="decimal" min="0" max="1.0">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formEditProduct.offer.$error.required && formEditProduct.offer.$touched) || (formEditProduct.$submitted && formEditProduct.offer.$error.required)">
+                                                Giảm Giá (%) không thể trống!
+                                            </div>
+                                            <div
+                                                ng-show="formEditProduct.offer.$error.pattern && (formEditProduct.offer.$touched || formEditProduct.$submitted)">
+                                                Giảm Giá (%) nằm khoảng từ 0 đến 1.0!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Offer-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Loại Sản Phẩm<span
+                                                    class="text-danger">*</span></label>
+                                            <select class="form-control" ng-model="editProduct.type" ng-required="true"
+                                                ng-change="typeEdit()" name="type"
+                                                ng-class="{'is-invalid-no-x': isValidTypeFormEdit}">
+                                                <option value="">Chọn Loại Sản Phẩm</option>
+                                                <option value="Game">Game</option>
+                                                <option value="PK">Phụ kiện</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div ng-show="isValidTypeFormEdit">
+                                                Loại Sản Phẩm là bắt buộc. Vui lòng chọn một lựa chọn!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Type-->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Danh Mục Sản Phẩm <span
+                                                    class="text-danger">*</span></label>
+                                            <select class="form-control" ng-model="editProduct.category.id"
+                                                ng-change="categoryEdit()" ng-required="true" name="category"
+                                                ng-class="{'is-invalid-no-x': isValidCategoryFormEdit}"
+                                                ng-options="category.id as category.name for category in categories">
+                                                <option value="" selected>Chọn danh mục sản phẩm</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div ng-show="isValidCategoryFormEdit">
+                                                Danh mục sản phẩm là bắt buộc. Vui lòng chọn một lựa chọn!
+                                            </div>
+                                        </div>
+                                        <!-- End Error category-->
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label d-block mb-2">Trạng Thái Sản Phẩm <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                    id="inlineRadio1" value="true" ng-model="editProduct.available"
+                                                    checked>
+                                                <label class="form-check-label" for="inlineRadio1">Còn Hàng</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                    id="inlineRadio2" value="false" ng-model="editProduct.available">
+                                                <label class="form-check-label" for="inlineRadio2">Hết Hàng</label>
+                                            </div>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div ng-show="isValidAvailableFormEdit">
+                                                Trạng thái sản phẩm là bắt buộc. Vui lòng chọn một lựa chọn!
+                                            </div>
+                                        </div>
+                                        <!-- End Error category-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Số Lượng <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="number" ng-model="editProduct.qty"
+                                                ng-class="{'is-invalid': (formEditProduct.quantity.$invalid && formEditProduct.quantity.$touched) || (formEditProduct.$submitted && formEditProduct.quantity.$invalid) || (formEditProduct.$submitted && isValidQuantity)}"
+                                                name="quantity" required min="1" step="any"
+                                                ng-pattern="/^(?!0(\.0*)?$)([1-9]\d*|0)(\.\d+)?$/">
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formEditProduct.quantity.$error.required && formEditProduct.quantity.$touched) || (formEditProduct.$submitted && formEditProduct.quantity.$error.required)">
+                                                Số Lượng không được trống!
+                                            </div>
+                                            <div
+                                                ng-show="(formEditProduct.quantity.$error.pattern && formEditProduct.quantity.$touched) || (formEditProduct.$submitted && formEditProduct.quantity.$error.pattern)">
+                                                Số lượng không hợp lệ! Vui lòng nhập một số hợp lệ và phải lớn hơn 0!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Quantity -->
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Nhà Phát Hành<span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" ng-model="editProduct.source"
+                                                ng-class="{'is-invalid': (formEditProduct.source.$invalid && formEditProduct.source.$touched) || (formEditProduct.$submitted && formEditProduct.source.$invalid) || (formEditProduct.$submitted && isValidSource)}"
+                                                name="source" required>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formEditProduct.source.$error.required && formEditProduct.source.$touched) || (formEditProduct.$submitted && formEditProduct.source.$error.required)">
+                                                Nhà Phát Hành không được trống!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Source -->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Đường Dẫn <span
+                                                    class="text-danger">*</span></label>
+                                            <input class="form-control" type="text" ng-model="editProduct.link"
+                                                ng-class="{'is-invalid': (formEditProduct.link.$invalid && formEditProduct.link.$touched) || (formEditProduct.$submitted && formEditProduct.link.$invalid) || (formEditProduct.$submitted && isValidLink)}"
+                                                name="link" required>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formEditProduct.link.$error.required && formEditProduct.link.$touched) || (formEditProduct.$submitted && formEditProduct.link.$error.required)">
+                                                Đường dẫn không được trống!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Source -->
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Mô Tả Sản Phẩm <span class="text-danger">*</span></label>
+                                            <textarea class="form-control" rows="5" ng-model="editProduct.details"
+                                                ng-class="{'is-invalid': (formEditProduct.description.$invalid && formEditProduct.description.$touched) || (formEditProduct.$submitted && formEditProduct.description.$invalid) || (formEditProduct.$submitted && isValidDescription)}"
+                                                name="description" required></textarea>
+                                        </div>
+                                        <div class="mb-1 text-danger font-weight-bold">
+                                            <div
+                                                ng-show="(formEditProduct.description.$error.required && formEditProduct.description.$touched) || (formEditProduct.$submitted && formEditProduct.description.$error.required)">
+                                                Mô Tả Sản Phẩm không được trống!
+                                            </div>
+                                        </div>
+                                        <!-- End Error Description -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-sm-12 col-md-4 theme-blush">
+                            <h4 class="d-flex justify-content-center">Ảnh Áp Phích</h4>
+                            <div class="avatar-wrapper">
+                                <img class="profile-pic" ng-src="{{posterEdit.href + posterEdit.key}}" alt="Avatar" />
+                                <div class="upload-button" ng-click="handleUploadClick()">
+                                    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                                </div>
+                                <input class="file-upload" type="file" id="fileInput" accept="image/*" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row d-flex justify-content-center">
+                                        <h4 class="">Ảnh Thu Nhỏ</h4>
+                                        <h5 class="text-danger fs-3 mt-1 ml-2">*Chỉ được 3 Ảnh Thu Nhỏ*</h5>
+                                    </div>
+                                    <div class="dropzone-container d-flex justify-content-center flex-wrap"
+                                        id="dropzone_remove">
+                                        <div ng-repeat="(key,thumbnail) in thumbnails">
+                                            <div class="avatar-wrapper mr-4">
+                                                <img class="profile-pic" ng-src="{{thumbnail.href + thumbnail.key}}"
+                                                    alt="Avatar" />
+                                                <div class="upload-button" ng-click="handleUploadClick(key)">
+                                                    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                                                </div>
+                                                <input class="file-upload d-none" type="file" id="thumbnail{{key}}"
+                                                    accept="image/*" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <style>
+                            .thumbnail {
+                                width: 300px;
+                                height: 300px;
+                                object-fit: cover;
+                                margin: 5px;
+                                border-radius: 5%;
+                                transition: transform 0.3s;
+                            }
+
+                            .thumbnail:hover {
+                                transform: scale(1.2);
+                            }
+                        </style>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" ng-click="updateProduct(editProduct.id)">Chỉnh
+                            Sửa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /Edit Product Modal -->
+
+
+    <!-- Comment Product Modal -->
+    <div id="comment_Product" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đánh Giá Sản Phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Người Đánh Giá</th>
+                                            <th style="width: 300px;">Đánh Giá</th>
+                                            <th>Số Sao</th>
+                                            <th>Ngày Đánh Giá</th>
+                                            <th>Trạng Thái</th>
+                                            <th class="text-right no-sort">Hoạt Động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="feedbackTableBody">
+                                        <!-- <tr ng-repeat="Feedback in Feedbacks">
+                                            <td>{{Feedback.id}}</a>
+                                            </td>
+                                            <td>{{Feedback.account.name}}</td>
+                                            <td class="d-flex text-wrap">{{Feedback.content}}</td>
+                                            <td>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star "></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </td>
+                                            <td>{{Feedback.createDate}} </td>
+
+                                            <td>
+                                                <div class="dropdown action-label">
+                                                    <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa fa-dot-circle-o text-success"></i> Đã Duyệt
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#"><i
+																class="fa fa-dot-circle-o text-success"></i>
+															Đã Duyệt</a>
+                                                        <a class="dropdown-item" href="#"><i
+																class="fa fa-dot-circle-o text-danger"></i>
+															Chưa Duyệt</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class=" text-right">
+                                                    <button href="#" data-toggle="modal" data-target="#delete_comment" class="border btn-danger">Delete</button>
+                                                </div>
+                                            </td>
+                                        </tr> -->
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Comment Product Modal -->
+
+    <!-- Delete Product Modal -->
+    <div class="modal custom-modal fade" id="delete_Product" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <h3>Delete Product</h3>
+                        <p>Are you sure want to delete?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0);" data-dismiss="modal"
+                                    class="btn btn-primary cancel-btn">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Product Modal -->
+    <!-- Delete Comment Modal -->
+    <div class="modal custom-modal fade" id="delete_comment" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <h3>Delete Product</h3>
+                        <p>Are you sure want to delete?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0);" data-dismiss="modal"
+                                    class="btn btn-primary cancel-btn">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Comment Modal -->
+    <div id="toast"></div>
+
+</div>
+<!-- /Page Wrapper -->

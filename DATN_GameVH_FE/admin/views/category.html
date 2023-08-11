@@ -1,0 +1,203 @@
+<!-- Header -->
+<div ng-include="'/templates/header.html'"></div>
+<!-- /Header -->
+
+<!-- Sidebar -->
+<div ng-include="'/templates/sidebar.html'"></div>
+<!-- /Sidebar -->
+
+<!-- /Page Wrapper -->
+<div class="page-wrapper" ng-controller="CategoryController">
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">THỂ LOẠI</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Trang Chủ</a>
+                        </li>
+                        <li class="breadcrumb-item active">Thể Loại</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-right ml-auto">
+                    <a ng-click="openAddModal()" href="#" class="btn add-btn" data-toggle="modal"
+                        data-target="#add_Category">
+                        <i class="fa fa-plus"></i>
+                        THÊM THỂ LOẠI</a>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Tên thể loại</th>
+                                <th>Thể loại</th>
+                                <th class="text-right">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="cate in categories">
+                                <td>{{cate.id}}</td>
+                                <td>{{cate.categoryId}}</td>
+                                <td>{{cate.name}}</td>
+                                <td>{{cate.type}}</td>
+                                <td class="text-right">
+                                    <div class="dropdown dropdown-action">
+                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class="material-icons font-weight-bold">⋮</i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a ng-click="selectCategory(cate)" class="dropdown-item" href="#"
+                                                data-toggle="modal" data-target="#edit_Category">
+                                                <i class="fa fa-pencil m-r-5"></i>
+                                                Chỉnh sửa</a>
+                                            <a ng-click="selectCategory(cate)" class="dropdown-item" href="#"
+                                                data-toggle="modal" data-target="#delete_Category">
+                                                <i class="fa fa-trash-o m-r-5"></i>
+                                                Xóa</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /Page Content -->
+
+    <!-- Add Category Modal -->
+    <div class="modal custom-modal fade" id="add_Category" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">THÊM THỂ LOẠI</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Loại
+                                </label>
+                                <select ng-model="formType" class="select">
+                                    <option value="Game">Game</option>
+                                    <option value="PK">Phụ Kiện</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>ID
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input ng-model="formCategoryId" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Tên thể loại
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input ng-model="formName" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group submit-section col-md-12">
+                                <button ng-click="submitAdd()" class="btn btn-primary submit-btn">
+                                    LƯU
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /Add Category Modal -->
+
+    <!-- Edit Category Modal -->
+    <div class="modal custom-modal fade" id="edit_Category" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">CHỈNH SỬA THỂ LOẠI</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Loại
+                                </label>
+                                <select ng-model="formType" class="select">
+                                    <option value="Game">Game</option>
+                                    <option value="PK">Phụ Kiện</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>ID
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input ng-model="formCategoryId" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Tên thể loại
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input ng-model="formName" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group submit-section col-md-12">
+                                <button ng-click="submitUpdate()" class="btn btn-primary submit-btn">
+                                    LƯU
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Category Modal -->
+
+    <!-- Delete Category Modal -->
+    <div class="modal custom-modal fade" id="delete_Category" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <h3 class="font-weight-bold">XÓA THỂ LOẠI</h3>
+                        <p>Bạn có muốn xóa không?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                        <div class="row">
+                            <div class="col-6">
+                                <a ng-click="delete()" href="javascript:void(0);"
+                                    class="btn btn-primary continue-btn">XÓA</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0);" data-dismiss="modal"
+                                    class="btn btn-primary cancel-btn">THOÁT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Category Modal -->
+
+    <!-- /Page Wrapper -->
+</div>

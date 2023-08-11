@@ -1,0 +1,99 @@
+<!-- Header -->
+<div ng-include="'/templates/header.html'"></div>
+<!-- /Header -->
+
+<!-- Sidebar -->
+<div ng-include="'/templates/sidebar.html'"></div>
+<!-- /Sidebar -->
+
+<!-- Page Wrapper -->
+<div class="page-wrapper" ng-controller="CustomerController">
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">KHÁCH HÀNG</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Trang Chủ</a>
+                        </li>
+                        <li class="breadcrumb-item active">Tài Khoản Khách Hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+        <div class="row filter-row">
+            <div class="col-sm-6 col-md-4">
+                <div class="form-group form-focus">
+                    <input ng-model="emailFilter" type="text" class="form-control floating" />
+                    <label class="focus-label">Email</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="form-group form-focus">
+                    <input ng-model="nameFilter" type="text" class="form-control floating" />
+                    <label class="focus-label">Họ tên</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <a href="#" class="btn btn-success btn-block" ng-click="filterData()">
+                    TÌM KIẾM
+                </a>
+            </div>
+        </div>
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Họ tên</th>
+                                <th>ID</th>
+                                <th>Tên người dùng</th>
+                                <th>Mật khẩu</th>
+                                <th>Email</th>
+                                <th class="text-center">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="customer in customers">
+                                <td>{{$index + 1}}</td>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href="profile.html" class="avatar"><img alt=""
+                                                ng-src="https://drive.google.com/uc?id={{customer.photo}}" /></a>
+                                        <a href="profile.html">{{customer.fullname}}</a>
+                                    </h2>
+                                </td>
+                                <td>{{customer.id}}</td>
+                                <td>{{customer.username}}</td>
+                                <td>{{customer.password}}</td>
+                                <td>{{customer.email}}</td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a ng-click="toggleAccountStatus(customer)"
+                                            class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#">
+                                            <i class="fa fa-dot-circle-o"
+                                                ng-class="{'text-success': customer.status, 'text-danger': !customer.status}"></i>
+                                            {{customer.status? "Đang Hoạt Động" : "Không Hoạt Động"}}
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+</div>
+<!-- /Page Wrapper -->

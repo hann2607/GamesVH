@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>ĐĂNG NHẬP</title>
+	<meta name="keywords" content="HTML5 Template">
+	<meta name="description" content="4TL">
+	<meta name="author" content="p-themes">
+	<!-- Favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icons/gamesVH-favicon-32x32-1.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icons/gamesVH-favicon-16x16.png">
+	<link rel="manifest" href="/assets/images/icons.html">
+	<link rel="mask-icon" href="/assets/images/icons/safari-pinned-tab.svg" color="#666666">
+	<link rel="shortcut icon" href="/assets/images/icons/gamesVH-favicon1.ico">
+	<meta name="apple-mobile-web-app-title" content="Molla">
+	<meta name="application-name" content="Molla">
+	<meta name="msapplication-TileColor" content="#cc9966">
+	<meta name="msapplication-config" content="/assets/images/icons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+	<meta name="google-signin-client_id"
+		content="826014525988-k8mo1nf93legn462lbsrrjmbir6plrsc.apps.googleusercontent.com">
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+	<link rel="stylesheet" href="/assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+	<!-- Plugins CSS File -->
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/plugins/owl-carousel/owl.carousel.css">
+	<link rel="stylesheet" href="/assets/css/plugins/magnific-popup/magnific-popup.css">
+	<!-- Main CSS File -->
+	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/skins/skin-demo-19.css">
+	<link rel="stylesheet" href="/assets/css/demos/demo-19.css">
+
+	<!-- 	FontAwesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+	<!-- AngularJS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"
+		integrity="sha512-KZmyTq3PLx9EZl0RHShHQuXtrvdJ+m35tuOiwlcZfs/rE7NZv29ygNA8SFCkMXTnYZQK2OX0Gm2qKGfvWEtRXA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<!-- Angular-sanitize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.8.3/angular-sanitize.min.js"
+		integrity="sha512-dqbRITjlgYAKHWHwL8fK7VPOsFc702ybywomtYLRcjOzBHM3WgEGN0SQQR6IJKY4ZiJiZkNguOAcFZmalk+2sA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<!-- Angular-route -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"
+		integrity="sha512-y1qD3hz/IAf8W4+/UMLZ+CN6LIoUGi7srWJ3r1R17Hid8x0yXe+1B5ZelkaL1Mjzedzu0Cg3HBvDG02SAgSzBw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<!-- AngularJS config -->
+	<script src="/config/app.js"></script>
+
+	<!-- AngularJS Controller -->
+	<script src="/controllers/LoginController.js"></script>
+	<script src="/controllers/FacebookSigninController.js"></script>
+	<script src="/controllers/RegisterController.js"></script>
+
+	<!-- AngularJS Service -->
+	<script src="/services/api/AccountService.js"></script>
+	<script src="/services/api/BcryptService.js"></script>
+	<script src="/services/api/AuthorityService.js"></script>
+	<script src="/services/api/SendMailService.js"></script>
+	<script src="/services/api/ToastService.js"></script>
+
+	<!-- Crypto JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+</head>
+
+<body ng-app="app">
+	<!-- Background image -->
+	<div class="bg-image" style="background-image: url('/assets/images/background_Login.jpg'); height: 100vh;">
+		<div class="mask" style="background-color: rgba(0, 0, 0, 0.7); height: 100vh;">
+			<div class="d-flex justify-content-center align-items-center h-100">
+				<div class="modal-body">
+					<div class="brand-logo">
+						<a href="/" class="d-flex justify-content-center m-3">
+							<img src="/assets/images/demos/demo-3/logo3.png" alt="Molla Logo">
+						</a>
+					</div>
+					<div class="form-box">
+						<div class="form-tab">
+							<ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+								<li class="nav-item"><a class="nav-link active" id="signin-tab" data-toggle="tab"
+										href="#signin" role="tab" aria-controls="signin" aria-selected="true">Đăng
+										nhập</a></li>
+								<li class="nav-item"><a class="nav-link" id="register-tab" data-toggle="tab"
+										href="#register" role="tab" aria-controls="register" aria-selected="false">Đăng
+										ký</a></li>
+							</ul>
+							<div class="tab-content" id="tab-content-5">
+								<div class="tab-pane fade show active" id="signin" role="tabpanel"
+									aria-labelledby="signin-tab" ng-controller="LoginController">
+									<form name="LoginForm" novalidate ng-submit="login()">
+										<div class="form-group">
+											<label for="singin-email">Tên đăng nhập *</label>
+											<input type="text" ng-model="account.username" class="form-control"
+												ng-class="{'is-invalid': (LoginForm.username.$invalid && LoginForm.username.$touched) || (LoginForm.$submitted && LoginForm.username.$invalid) || (LoginForm.$submitted && isValidUsername)}"
+												name="username" ng-required="true" />
+										</div>
+										<!-- End .form-group -->
+
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(LoginForm.username.$error.required && LoginForm.username.$touched) || (LoginForm.$submitted && LoginForm.username.$invalid)">
+												Tên đăng nhập không được để trống!
+											</div>
+										</div>
+										<!-- End Error Username-->
+
+										<div class="form-group">
+											<label for="singin-password">Mật khẩu *</label> <input type="password"
+												ng-change="inputPassChange()" ng-model="account.password"
+												class="form-control" id="singin-password"
+												ng-class="{'is-invalid': (LoginForm.password.$invalid && LoginForm.password.$touched) || (LoginForm.$submitted && LoginForm.password.$invalid) || (LoginForm.$submitted && isValidPassword)}"
+												name="password" required>
+										</div>
+										<!-- End .form-group -->
+
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(LoginForm.password.$error.required && LoginForm.password.$touched) || (LoginForm.$submitted && LoginForm.password.$invalid)">
+												Mật khẩu không được để trống!
+											</div>
+											<div ng-show="LoginForm.$submitted && isValidPassword">
+												Sai mật khẩu!
+											</div>
+										</div>
+										<!-- End Error Password-->
+
+										<div class="form-footer">
+											<button type="submit" class="btn btn-outline-primary-2">
+												<span>ĐĂNG NHẬP</span> <i class="icon-long-arrow-right"></i>
+											</button>
+
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input"
+													ng-model="rememberMe" id="signin-remember"> <label
+													class="custom-control-label" for="signin-remember">Lưu đăng
+													nhập</label>
+											</div>
+											<!-- End .custom-checkbox -->
+
+											<a href="#" class="forgot-link">Quên mật khẩu ?</a>
+
+										</div>
+										<h4 class="text-danger font-weight-bold text-center">{{message}}</h4>
+										<!-- End .form-footer -->
+									</form>
+
+									<div class="form-choice">
+										<p class="text-center">Hoặc đăng nhập bằng</p>
+										<div class="row">
+											<div class="col-sm-6">
+												<a href="#" class="btn btn-login btn-g" ng-click="oauthSignIn()"> <i
+														class="icon-google"></i>
+													Đăng nhập với Google
+												</a>
+											</div>
+											<!-- End .col-6 -->
+											<div class="col-sm-6">
+												<!-- The JS SDK Login Button -->
+
+												<a href="#" class="btn btn-login btn-f fb-login-button"
+													scope="public_profile,email" onlogin="checkLoginState();">
+													Đăng nhập với facebook
+												</a>
+
+												<!-- Load the JS SDK asynchronously -->
+												<script async defer crossorigin="anonymous"
+													src="https://connect.facebook.net/en_US/sdk.js"></script>
+											</div>
+											<!-- End .col-6 -->
+										</div>
+										<!-- End .row -->
+									</div>
+									<!-- End .form-choice -->
+									<div id="toast"></div>
+								</div>
+								<!-- .End .tab-pane -->
+								<div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab"
+									ng-controller="RegisterController">
+									<form name="RegisterForm" novalidate ng-submit="Register()">
+										<div class="form-group">
+											<label for="register-username">Tên đăng nhập *</label>
+											<input ng-model="form.username" type="text" class="form-control"
+												ng-class="{'is-invalid': (RegisterForm.registerUsername.$invalid && RegisterForm.registerUsername.$touched) || (RegisterForm.$submitted && RegisterForm.registerUsername.$invalid)}"
+												id="register-username" name="registerUsername" required
+												ng-pattern="/^[a-zA-Z][a-zA-Z0-9]*$/" ng-trim="false">
+										</div>
+										<!-- End .form-group -->
+
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(RegisterForm.registerUsername.$error.required && RegisterForm.registerUsername.$touched) || (RegisterForm.$submitted && RegisterForm.registerUsername.$error.required)">
+												Tên đăng nhập không được để trống!
+											</div>
+											<div
+												ng-show="(RegisterForm.registerUsername.$error.pattern && RegisterForm.registerUsername.$touched) || (RegisterForm.$submitted && RegisterForm.registerUsername.$error.pattern)">
+												Tên đăng nhập không được bắt đầu bằng số và không chứa kí tự đặc biệt và
+												khoảng trắng!
+											</div>
+										</div>
+										<!-- End Error Username-->
+
+										<div class="form-group">
+											<label for="register-fullname">Họ và tên *</label> <input
+												ng-model="form.fullname" type="text" class="form-control"
+												ng-class="{'is-invalid': (RegisterForm.registerFullname.$invalid && RegisterForm.registerFullname.$touched) || (RegisterForm.$submitted && RegisterForm.registerFullname.$invalid) || (RegisterForm.$submitted && isValidFullname)}"
+												id="register-fullname" name="registerFullname" required
+												ng-pattern="/^(([a-zA-Z\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\s\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$/">
+										</div>
+										<!-- End .form-group -->
+
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(RegisterForm.registerFullname.$error.required && RegisterForm.registerFullname.$touched) || (RegisterForm.$submitted && RegisterForm.registerFullname.$error.required)">
+												Họ và tên không được để trống!
+											</div>
+											<div
+												ng-show="(RegisterForm.registerFullname.$error.pattern && RegisterForm.registerFullname.$touched) || (RegisterForm.$submitted && RegisterForm.registerFullname.$error.pattern)">
+												Họ và tên không được chứa số và kí tự đặc biệt!
+											</div>
+										</div>
+										<!-- End Error Fullname-->
+
+										<div class="form-group">
+											<label for="register-email">Email *</label>
+											<input ng-model="form.email" type="email" class="form-control"
+												id="register-email"
+												ng-class="{'is-invalid': (RegisterForm.registerEmail.$invalid && RegisterForm.registerEmail.$touched) || (RegisterForm.$submitted && RegisterForm.registerEmail.$invalid)}"
+												name="registerEmail" required>
+										</div>
+										<!-- End .form-group -->
+
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(RegisterForm.registerEmail.$error.required && RegisterForm.registerEmail.$touched) || (RegisterForm.$submitted && RegisterForm.registerEmail.$error.required)">
+												Email không được để trống!
+											</div>
+											<div
+												ng-show="RegisterForm.registerEmail.$error.email && RegisterForm.registerEmail.$touched">
+												Email không đúng định dạng!
+											</div>
+										</div>
+										<!-- End Error Email-->
+
+
+										<!-- <div class="form-group">
+											<label for="register-address">Địa chỉ *</label> <input
+												ng-model="form.address" type="text" class="form-control"
+												id="register-address" name="register-address" required>
+										</div> -->
+										<!-- End .form-group -->
+										<div class="form-footer mb-0 pb-0 mt-2" style="border: none;">
+											<button type="submit" class="btn btn-outline-primary-2">
+												<span>ĐĂNG KÝ</span> <i class="icon-long-arrow-right"></i>
+											</button>
+
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="register-policy"
+													name="registerPolicy" ng-model="form.agree" required>
+												<label class="custom-control-label"
+													ng-class="{'text-danger': RegisterForm.registerPolicy.$invalid && RegisterForm.$submitted}"
+													for="register-policy">
+													Tôi chấp nhận với <a href="#">Điều khoản và dịch vụ</a> *
+												</label>
+											</div>
+											<!-- End .custom-checkbox -->
+										</div>
+										<h4 class="text-center text-success mt-3">
+											{{messageSuccess}} </h4>
+										<h4 class="text-center text-danger">{{messageFailed}}</h4>
+										<!-- End .form-footer -->
+									</form>
+								</div>
+								<!-- .End .tab-pane -->
+							</div>
+							<!-- End .tab-content -->
+						</div>
+						<!-- End .form-tab -->
+					</div>
+					<!-- End .form-box -->
+				</div>
+				<!-- End .modal-body -->
+			</div>
+		</div>
+	</div>
+	<!-- Background image -->
+	<!-- Plugins JS File -->
+	<script src="/assets/js/jquery.min.js"></script>
+	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="/assets/js/jquery.hoverIntent.min.js"></script>
+	<script src="/assets/js/jquery.waypoints.min.js"></script>
+	<script src="/assets/js/superfish.min.js"></script>
+	<script src="/assets/js/owl.carousel.min.js"></script>
+	<script src="/assets/js/bootstrap-input-spinner.js"></script>
+	<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- Main JS File -->
+	<script src="/assets/js/main.js"></script>
+	<script src="/assets/js/demos/demo-19.js"></script>
+	<script type="text/javascript" src="/assets/AngularJS API/Register.js"></script>
+</body>
+
+
+</html>

@@ -1,0 +1,395 @@
+<!-- Header -->
+<div ng-include="'/templates/header.html'"></div>
+<!-- /Header -->
+
+<!-- Sidebar -->
+<div ng-include="'/templates/sidebar.html'"></div>
+<!-- /Sidebar -->
+
+<!-- Page Wrapper -->
+<div class="page-wrapper" ng-controller="OrderController">
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">DANH SÁCH ĐƠN HÀNG</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Trang Chủ</a>
+                        </li>
+                        <li class="breadcrumb-item active">Danh Sách Đơn Hàng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+        <div class="row filter-row">
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group form-focus">
+                    <input type="text" class="form-control floating" ng-model="phoneFilter" />
+                    <label class="focus-label">Số diện thoại</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group form-focus">
+                    <input type="text" class="form-control floating" ng-model="userNameFilter" />
+                    <label class="focus-label">Tên khách hàng</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group form-focus cal-icon">
+                    <input type="text" class="form-control floating datetimepicker" ng-model="createdAtFilter"
+                        customzdatetime="customzdatetime" />
+                    <label class="focus-label">Ngày tạo</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="#" class="btn btn-success btn-block" ng-click="filterData()">
+                    TÌM KIẾM
+                </a>
+            </div>
+        </div>
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <!-- <th>ID</th> -->
+                                <th>Họ tên</th>
+                                <th>Ngày tạo</th>
+                                <th>Phí Ship</th>
+                                <th>Tổng tiền</th>
+                                <th>Địa chỉ</th>
+                                <th>Số điện thoại</th>
+                                <th>Trạng thái</th>
+                                <th>Tình trạng thanh toán</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="order in orders">
+                                <td>{{$index + 1}}</td>
+                                <!-- <td>{{order.id}}</td> -->
+                                <td>{{order.fullname}}</td>
+                                <td>{{order.createDate | date: "dd/MM/yyyy"}}</td>
+                                <td>{{order.shippingFee | currency: 'đ ' : '0'}}</td>
+                                <td>{{order.totalPrice | currency:'đ ' : '0'}}</td>
+                                <td>{{order.address}}</td>
+                                <td>{{order.phone}}</td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a data-toggle="modal" data-target="#status_order"
+                                            class="btn btn-white btn-sm btn-rounded" href="#" data-toggle="dropdown"
+                                            aria-expanded="false" ng-click="viewOrderStatus(order)">
+                                            <span ng-if="order.orderStatus=== 'Đã hoàn thành'">
+                                                <i class="fa fa-dot-circle-o text-success"></i>
+                                                Đã Hoàn Thành
+                                            </span>
+                                            <span ng-if="order.orderStatus=== 'Đã hủy'">
+                                                <i class="fa fa-dot-circle-o text-danger"></i>
+                                                Đã Hủy
+                                            </span>
+                                            <span ng-if="order.orderStatus=== 'Đang chờ xử lý'">
+                                                <i class="fa fa-dot-circle-o text-warning"></i>
+                                                Đang chờ xử lý
+                                            </span>
+                                            <span ng-if="order.orderStatus=== 'Đang vận chuyển'">
+                                                <i class="fa fa-dot-circle-o text-info"></i>
+                                                Đang vận chuyển
+                                            </span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{order.paymentStatus ? "Đã thanh toán" : "Chưa thanh toán"}}
+                                </td>
+                                <td class="text-right">
+                                    <div class="text-right">
+                                        <button ng-click="viewData(order)" href="#" type="button" data-toggle="modal"
+                                            data-target="#data_order" class="btn btn-primary">
+                                            Chi tiết
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+    <!-- Order Data Modal -->
+    <div id="data_order" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header row">
+                    <div class="tabs active mr-4" id="tab01">
+                        <h3>THÔNG TIN ĐƠN HÀNG</h3>
+                    </div>
+                    <div class="tabs ml-4" id="tab02">
+                        <h3>CHI TIẾT ĐƠN HÀNG</h3>
+                    </div>
+                    <button type="button" class="close mr-3 mt-1" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="modal-body">
+                    <fieldset class="show" id="tab011">
+                        <form>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h2 class="modal-title">Thông tin nguời đặt</h2>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Họ tên
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.account.username}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Email
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.email}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Số điện thoại
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.phone}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">City
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.city}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">District</label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.district}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Ward</label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.ward}}
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Địa chỉ</label>
+                                        <div class="form-control m-auto" type="text">
+                                            {{selectedOrderData.address}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 mt-3">
+                                    <h2 class="modal-title">Thông tin thanh toán</h2>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Ngày tạo<span class="text-danger">*</span>
+                                        </label>
+                                        <div class="cal-icon">
+                                            <div class="form-control" type="text">
+                                                {{selectedOrderData.createDate | date: 'dd/MM/yyyy'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Hình thức thanh toán
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.paymentType}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Mã giảm giá</label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.couponCode || ''}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Phí vận chuyển</label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.shippingFee | currency: 'đ ': '0'}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Tổng tiền</label>
+                                        <div class="form-control" type="text">
+                                            {{selectedOrderData.totalPrice | currency: 'đ ': '0'}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </fieldset>
+                    <fieldset id="tab021">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped custom-table">
+                                            <h3>PRODUCT</h3>
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Tên</th>
+                                                    <th>Giá gốc</th>
+                                                    <th>Giá sau khi giảm</th>
+                                                    <th>Thể loại</th>
+                                                    <th>Nguồn</th>
+                                                    <th>Thể loại</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Tổng tiền</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="detail in selectedorderDetail">
+                                                    <td>{{detail.index + 1}}</td>
+                                                    <td>{{detail.product.name}}</td>
+                                                    <td>{{detail.product.originPrice | currency: 'đ ': '0'}}</td>
+                                                    <td>{{detail.product.salePrice | currency: 'đ ': '0'}}</td>
+                                                    <td>{{detail.product.category.name}}</td>
+                                                    <td>{{detail.product.source}}</td>
+                                                    <td>{{detail.product.category.game}}</td>
+                                                    <td>{{detail.product.qty}}</td>
+                                                    <td class="font-weight-bold">{{detail.price | currency: 'đ ': '0'}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Order Data Modal -->
+
+    <!-- Order Status Modal -->
+    <div id="status_order" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header row">
+                    <div class="tabs active mr-4" id="tab01">
+                        <h3>TRẠNG THÁI ĐƠN HÀNG</h3>
+                    </div>
+                    <button type="button" class="close mr-3 mt-1" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-5">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-6 mt-2">
+                                <div class="form-group h-100 d-flex flex-column">
+                                    <div>
+                                        <label>Tình trạng thanh toán</label>
+                                    </div>
+                                    <div class="form-check  mt-2">
+                                        <input ng-model="selectedOrderStatus.paymentStatus" class="form-check-input"
+                                            type="checkbox" disabled="disabled" />
+                                        <label class="form-check-label">
+                                            {{selectedOrderStatus.paymentStatus? "Đã" : "Chưa"}}
+                                            Thanh Toán
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Hình thức thanh toán
+                                    </label>
+                                    <input class="form-control" type="text" disabled="disabled"
+                                        ng-model="selectedOrderStatus.paymentType" />
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div>
+                                    <label for="order-status-select">Trạng thái đơn hàng
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div style="width: 400px;">
+                                        <select ng-model="selectedOrderStatus.orderStatus"
+                                            ng-options="status.value as status.label for status in statusOptions"
+                                            id="order-status-select" class="form-control">
+                                            <option ng-if="selectedOrderStatus.paymentStatus"> Đã Hoàn Thành
+                                            </option>
+                                            <option ng-if="selectedOrderStatus.paymentStatus">Đang Vận Chuyển
+                                            </option>
+                                            <option>Đang Chờ Xử Lý</option>
+                                            <option>Đã Hủy</option>
+                                        </select>
+                                    </div>
+                                    <div class="m-auto">
+                                        <button class="btn btn-primary" ng-click="updateStatus()">
+                                            LƯU
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Order Status Modal -->
+</div>
+<!-- /Page Wrapper -->
+
+<style>
+    .form-control {
+        line-height: 30px;
+    }
+</style>

@@ -1,0 +1,394 @@
+<div class="wrap-container" ng-controller="CheckoutController">
+	<div class="image-bg-body"></div>
+	<main class="main">
+		<div class="page-header text-center" style="background-image: url('/assets/images/page-header-bg.jpg')">
+			<div class="container">
+				<h1 class="page-title">
+					Thanh toán<span>Đơn hàng của tôi</span>
+				</h1>
+			</div>
+			<!-- End .container -->
+		</div>
+		<!-- End .page-header -->
+		<nav aria-label="breadcrumb" class="breadcrumb-nav">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+					<li class="breadcrumb-item"><a href="/shop">Cửa hàng</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
+				</ol>
+			</div>
+			<!-- End .container -->
+		</nav>
+		<!-- End .breadcrumb-nav -->
+
+		<div class="page-content">
+			<div class="checkout">
+				<div class="container">
+					<div class="checkout-discount">
+						<!-- <form class="d-flex row">
+							<input type="text" class="form-control col m-0" required id="checkout-discount-input" readonly
+								placeholder="Mã giảm giá">
+								<a href="#" class="col ml-4 btn btn-outline-primary-2 btn-order btn-block" >CHỌN MÃ GIẢM GIÁ</a>
+						</form> -->
+						<form class="d-flex row ml-1" style="width: 45em;">
+							<input type="text" class="form-control col-8 m-0" id="checkout-discount-input"
+								placeholder="Nhập mã giảm giá..." ng-model="form.coupon"
+								ng-class="{'is-invalid-no-x': (isValidCoupon || isValidMinSpendCoupon || isValidDateCoupon)}"
+								ng-change="updateStatusCoupon()">
+							<a href="#" class="col ml-4 btn btn-outline-primary-2 btn-order btn-block"
+								ng-click="checkCoupon()">ÁP DỤNG MÃ</a>
+							<div class="mb-1 text-danger font-weight-bold">
+								<div ng-show="isValidCoupon">
+									Mã giảm giá không đúng!
+								</div>
+								<div ng-show="isValidMinSpendCoupon">
+									Mã giảm giá không áp dụng cho đơn hàng này!
+								</div>
+								<div ng-show="isValidDateCoupon">
+									{{DateCouponError}}
+								</div>
+							</div>
+						</form>
+						<!-- <form action="#">
+							<input type="text" class="form-control" required id="checkout-discount-input"
+								placeholder="Hãy nhấn vào đây để nhập mã giảm giá của bạn...">
+							</label>
+						</form> -->
+					</div>
+					<!-- End .checkout-discount -->
+					<form name="orderForm" novalidate ng-submit="checkout()">
+						<div class="row">
+							<div class="col-lg-9">
+								<h2 class="checkout-title">Thông tin thanh toán</h2>
+
+								<label>Họ và tên *</label> <input type="text" ng-model="form.fullname"
+									class="form-control"
+									ng-class="{'is-invalid': (orderForm.fullname.$invalid && orderForm.fullname.$touched) || (orderForm.$submitted && orderForm.fullname.$invalid)}"
+									name="fullname" required
+									ng-pattern="/^(([a-zA-Z\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\s\'ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]*)([a-zA-Z\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]))*$/">
+								<!-- End .form-group -->
+								<div class="mb-1 text-danger font-weight-bold">
+									<div
+										ng-show="(orderForm.fullname.$error.required && orderForm.fullname.$touched) || (orderForm.$submitted && orderForm.fullname.$error.required)">
+										Họ và tên không được để trống!
+									</div>
+									<div
+										ng-show="(orderForm.fullname.$error.pattern && orderForm.fullname.$touched) || (orderForm.$submitted && orderForm.fullname.$error.pattern)">
+										Họ và tên không được chứa số và kí tự đặc biệt!
+									</div>
+								</div>
+								<!-- End Error fullname-->
+
+								<label>Địa chỉ nhận hàng *</label> <input type="text" class="form-control"
+									ng-model="form.address"
+									ng-class="{'is-invalid': (orderForm.address.$invalid && orderForm.address.$touched) || (orderForm.$submitted && orderForm.address.$invalid)}"
+									name="address" required>
+								<!-- End .form-group -->
+								<div class="mb-1 text-danger font-weight-bold">
+									<div
+										ng-show="(orderForm.address.$error.required && orderForm.address.$touched) || (orderForm.$submitted && orderForm.address.$error.required)">
+										Địa chỉ nhận hàng không được để trống!
+									</div>
+								</div>
+								<!-- End Error address-->
+
+								<div class="row">
+									<div class="col-sm-4">
+										<label>Tỉnh/Thành phố *</label>
+										<select class="form-control" id="province" ng-model="form.province"
+											ng-change="updateProvince()" name="province"
+											ng-options="option.code as option.name for option in provinces" required
+											ng-class="{'is-invalid-no-x': (orderForm.province.$invalid && orderForm.province.$touched) || (orderForm.$submitted && orderForm.province.$invalid)}">
+											<option value="" selected disabled>Chọn Thành phố</option>
+										</select>
+										<!-- End .form-group -->
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(orderForm.province.$error.required && orderForm.province.$touched) || (orderForm.$submitted && orderForm.province.$error.required)">
+												Vui lòng chọn Tỉnh/Thành phố!
+											</div>
+										</div>
+										<!-- End Error address-->
+									</div>
+									<!-- End .col-sm-4 -->
+
+									<div class="col-sm-4">
+										<label>Quận/Huyện *</label>
+										<select class="form-control" id="district" ng-model="form.district"
+											ng-options="district.code as district.name for district in districts"
+											name="district" ng-change="updateDistrict()"
+											ng-disabled="selectedDistrict === false" required
+											ng-class="{'is-invalid-no-x': (orderForm.district.$invalid && orderForm.district.$touched) || (orderForm.$submitted && orderForm.district.$invalid)}">
+											<option value="" selected disabled>Chọn Quận/Huyện</option>
+										</select>
+										<!-- End .form-group -->
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(orderForm.district.$error.required && orderForm.district.$touched) || (orderForm.$submitted && orderForm.district.$error.required)">
+												Vui lòng chọn Quận/Huyện!
+											</div>
+										</div>
+										<!-- End Error address-->
+									</div>
+									<!-- End .col-sm-4 -->
+
+									<div class="col-sm-4">
+										<label>Phường/Xã *</label>
+										<select class="form-control" id="ward" ng-model="form.ward"
+											ng-options="option.code as option.name for option in wards" name="ward"
+											ng-change="updateWard()" ng-disabled="selectedWard === false" required
+											ng-class="{'is-invalid-no-x': (orderForm.ward.$invalid && orderForm.ward.$touched) || (orderForm.$submitted && orderForm.ward.$invalid)}">
+											<option value="" selected disabled>Chọn Xã/Phường</option>
+										</select>
+										<!-- End .form-group -->
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(orderForm.ward.$error.required && orderForm.ward.$touched) || (orderForm.$submitted && orderForm.ward.$error.required)">
+												Vui lòng chọn Xã/Phường!
+											</div>
+										</div>
+										<!-- End Error address-->
+									</div>
+									<!-- End .col-sm-4 -->
+
+								</div>
+								<!-- End .row -->
+								<div class="row">
+									<div class="col-sm-6">
+										<label>Email *</label> <input type="email" ng-model="form.email"
+											class="form-control"
+											ng-class="{'is-invalid': (orderForm.email.$invalid && orderForm.email.$touched) || (orderForm.$submitted && orderForm.email.$invalid)}"
+											name="email" required>
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(orderForm.email.$error.required && orderForm.email.$touched) || (orderForm.$submitted && orderForm.email.$error.required)">
+												Email không được để trống!
+											</div>
+											<div ng-show="orderForm.email.$error.email && orderForm.email.$touched">
+												Email không đúng định dạng!
+											</div>
+										</div>
+										<!-- End Error Email-->
+									</div>
+									<!-- End .col-sm-6 -->
+
+
+									<div class="col-sm-6">
+										<label>Số điện thoại người nhận *</label> <input type="text"
+											class="form-control" ng-model="form.phone"
+											ng-class="{'is-invalid': (orderForm.phone.$invalid && orderForm.phone.$touched) || (orderForm.$submitted && orderForm.phone.$invalid)}"
+											name="phone" required
+											ng-pattern="/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/">
+										<div class="mb-1 text-danger font-weight-bold">
+											<div
+												ng-show="(orderForm.phone.$error.required && orderForm.phone.$touched) || (orderForm.$submitted && orderForm.phone.$error.required)">
+												Số điện thoại người nhận không được để trống!
+											</div>
+											<div
+												ng-show="(orderForm.phone.$error.pattern && orderForm.phone.$touched) || (orderForm.$submitted && orderForm.phone.$error.pattern)">
+												Số điện thoại không đúng định dạng!
+											</div>
+										</div>
+										<!-- End Error Email-->
+									</div>
+									<!-- End .col-sm-6 -->
+
+								</div>
+								<!-- End .row -->
+
+								<div class="row">
+									<div class="col-sm-6">
+										<label>Ghi chú đơn hàng</label>
+										<textarea class="form-control" cols="30" rows="2" ng-model="form.note"
+											placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: ghi chú đặc biệt cho giao hàng"></textarea>
+									</div>
+									<!-- End .col-sm-6 -->
+
+									<!-- <div class="col-sm-6">
+											 Replace "test" with your own sandbox Business account app client ID 
+											<script
+												src="https://www.paypal.com/sdk/js?client-id=AcaTYl3bLV1GeujO_XGfc3P3KGUeGUj_EMo8cLcqIl5esaS0GNpVrIX7o5P-mFXFJG86aM1McdZx0YSP&currency=USD"></script>
+											 Set up a container element for the button 
+											<div id="paypal-button-container"></div>
+
+										</div> -->
+									<div class="col-sm-6">
+										<label>Mã Khuyến mãi</label>
+										<br>
+										<div class="coupon" ng-show="coupon">
+											<div class="ticket-frame">
+												<img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/92b78ced-1b1f-4a14-ad7e-4aa19910e24a/deifbc2-bcc43f88-e0e6-48ab-8478-658fef994cd2.png/v1/fill/w_1280,h_427,q_80,strp/jett_valorant_twitter_header_by_connorjones_deifbc2-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NDI3IiwicGF0aCI6IlwvZlwvOTJiNzhjZWQtMWIxZi00YTE0LWFkN2UtNGFhMTk5MTBlMjRhXC9kZWlmYmMyLWJjYzQzZjg4LWUwZTYtNDhhYi04NDc4LTY1OGZlZjk5NGNkMi5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.Ejp1rc60MbEECnawk9LaIskMwB2gpMOwt5x6CofVIbs"
+													alt="Ticket Image" class="ticket-image img-responsive">
+												<div class="ticket-content">
+													<h5 class="text-white">{{coupon ? coupon.couponName : "Tiêu đề"}}
+													</h5>
+													<p class="text-white">{{coupon ? coupon.description : "Thông tin về
+														mã giảm giá"}}
+													</p>
+													<button type="button" class="btn close-button"
+														ng-click="clearCoupon()"></button>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- End .col-sm-6 -->
+								</div>
+								<!-- End .row -->
+
+							</div>
+							<!-- End .col-lg-9 -->
+							<aside class="col-lg-3">
+								<div class="summary p-4 pt-2" style="height: 51rem;">
+									<h3 class="summary-title">Đơn hàng của bạn</h3>
+									<!-- End .summary-title -->
+
+									<table class="table table-summary table-responsive">
+										<thead>
+											<tr>
+												<th scope="col" class="text-left">Sản phẩm</th>
+												<th scope="col" class="text-right" style="padding-left: 126px;">Giá tiền
+												</th>
+											</tr>
+										</thead>
+										<tbody style="height: 12em;overflow-y: auto;display: block;">
+											<tr ng-repeat="item in cart">
+												<td><a href="/product/detail/{{item.product.id}}">{{item.qty }} x
+														{{item.name}}</a>
+												</td>
+												<td>{{(item.salePrice - (item.salePrice * item.offer)) | vndFormat}}
+												</td>
+											</tr>
+
+										</tbody>
+										<tfoot>
+											<tbody>
+												<tr>
+													<td
+														style="height: 30px; border: none; border-bottom: 0.1rem solid #cccccc;">
+													</td>
+													<td
+														style="padding-left: 229px; height: 30px; border: none; border-bottom: 0.1rem solid #cccccc;">
+													</td>
+												</tr>
+												<tr>
+													<td>Vận chuyển:</td>
+													<td>Miễn phí</td>
+												</tr>
+												<tr>
+													<td style="border: none; border-bottom: 0.1rem solid #cccccc;">
+														Khuyến mãi:</td>
+													<!-- <td style="border: none; border-bottom: 0.1rem solid #cccccc;">{{coupon ? coupon.code : ""}}
+													</td> -->
+													<td style="border: none; border-bottom: 0.1rem solid #cccccc;">
+														{{coupon ? "- " + (coupon.value | vndFormat) : "..."}}
+													</td>
+												</tr>
+												<tr class="summary-total">
+													<td class="text-left mr-5">Tổng tiền:</td>
+													<td class="text-right">{{TotalPrice | vndFormat}}</td>
+												</tr>
+											</tbody>
+
+										</tfoot>
+									</table>
+									<!-- End .table table-summary -->
+								</div>
+								<!-- End .summary -->
+
+
+							</aside>
+							<!-- End .col-lg-3 -->
+						</div>
+						<!-- End .row -->
+
+						<div class="row">
+							<div class="col-lg-9">
+								<div class="summary">
+									<h3 class="summary-title">Phương thức thanh toán</h3>
+									<div class="d-flex flex-row align-items-center">
+										<label class="form-check form-check-inline mb-2 mr-5">
+											<input class="form-check-input" type="radio" name="payment-method"
+												ng-model="paymentMethod" value="momo">
+											<img class="img-thumbnail mx-3" src="/assets/images/payment/icon-momo.png"
+												alt="">
+											<p>Thanh toán bằng ví MoMo</p>
+										</label>
+										<label class="form-check form-check-inline mb-2">
+											<input class="form-check-input" type="radio" name="payment-method"
+												ng-model="paymentMethod" value="vnpay">
+											<img class="img-thumbnail mx-3" src="/assets/images/payment/icon-vnpay.png"
+												alt="">
+											<p>Thanh toán bằng ví VNPay</p>
+										</label>
+									</div>
+									<div class="d-flex flex-row align-items-center">
+										<label class="form-check form-check-inline mr-5">
+											<input class="form-check-input" type="radio" name="payment-method"
+												ng-model="paymentMethod" value="paypal">
+											<img class="img-thumbnail mx-3" src="/assets/images/payment/icon-paypal.png"
+												alt="">
+											<p>Thanh toán bằng ví Paypal</p>
+										</label>
+										<label class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="payment-method"
+												ng-model="paymentMethod" value="cod">
+											<img class="img-thumbnail mx-3" src="/assets/images/payment/icon-cod.png"
+												alt="">
+											<p>Thanh toán khi nhận hàng (COD)</p>
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-3">
+								<button type="submit" style="height: 8em;"
+									class="btn btn-outline-primary-2 btn-order btn-block">
+									<span class="btn-text">THANH TOÁN</span>
+									<span class="btn-hover-text"><i class="fa-solid fa-dollar-sign"></i> THANH TOÁN
+										ĐƠN HÀNG</span>
+								</button>
+								<a type="button" style="height: 8em;"
+									class="btn btn-outline-primary-2 btn-order btn-block" href="/shop">
+									<span class="btn-text">TIẾP TỤC MUA SẮM</span>
+									<span class="btn-hover-text"><i class="fa-solid fa-store"></i> QUAY LẠI CỬA
+										HÀNG</span>
+								</a>
+							</div>
+						</div>
+						<!-- End .row -->
+					</form>
+				</div>
+				<!-- End .container -->
+			</div>
+			<!-- End .checkout -->
+		</div>
+		<!-- End .page-content -->
+		<div id="toast"></div>
+	</main>
+	<!-- Loading -->
+	<div class="overlay" id="loading" hidden>
+		<div class="animation-container">
+			<div class="lightning-container">
+				<div class="lightning white"></div>
+				<div class="lightning red"></div>
+			</div>
+			<div class="boom-container">
+				<div class="shape circle big white"></div>
+				<div class="shape circle white"></div>
+				<div class="shape triangle big yellow"></div>
+				<div class="shape disc white"></div>
+				<div class="shape triangle blue"></div>
+			</div>
+			<div class="boom-container second">
+				<div class="shape circle big white"></div>
+				<div class="shape circle white"></div>
+				<div class="shape disc white"></div>
+				<div class="shape triangle blue"></div>
+			</div>
+		</div>
+	</div>
+	<!-- End Loading -->
+	<!-- /Page Wrapper -->
+</div>

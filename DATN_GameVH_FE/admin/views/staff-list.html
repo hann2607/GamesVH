@@ -1,0 +1,293 @@
+<!-- Header -->
+<div ng-include="'/templates/header.html'"></div>
+<!-- /Header -->
+
+<!-- Sidebar -->
+<div ng-include="'/templates/sidebar.html'"></div>
+<!-- /Sidebar -->
+
+<!-- Page Wrapper -->
+<div class="page-wrapper" ng-controller="EmployeeController">
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">NHÂN VIÊN</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Trang Chủ</a>
+                        </li>
+                        <li class="breadcrumb-item active">Tài Khoản Nhân Viên</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-right ml-auto">
+                    <a ng-click="openAddModal()" href="#" class="btn add-btn" data-toggle="modal"
+                        data-target="#add_Staff">
+                        <i class="fa fa-plus"></i>
+                        Thêm tài khoản nhân viên</a>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+        <div class="row filter-row">
+            <div class="col-sm-6 col-md-4">
+                <div class="form-group form-focus">
+                    <input ng-model="usernameFilter" type="text" class="form-control floating" />
+                    <label class="focus-label">Họ tên</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="form-group form-focus">
+                    <input ng-model="nameFilter" type="text" class="form-control floating" />
+                    <label class="focus-label">Tên người dùng</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <a href="#" class="btn btn-success btn-block" ng-click="filterData()">
+                    TÌM KIẾM
+                </a>
+            </div>
+        </div>
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Họ tên</th>
+                                <th>ID</th>
+                                <th>Tên người dùng</th>
+                                <th>Mật khẩu</th>
+                                <th>Email</th>
+                                <th class="text-center">Trạng thái</th>
+                                <th class="text-right no-sort">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="employee in employees">
+                                <td>{{$index + 1}}</td>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href="profile.html" class="avatar"><img alt=""
+                                                ng-src="https://drive.google.com/uc?id={{employee.photo}}" /></a>
+                                        <a href="profile.html">{{employee.fullname}}</a>
+                                    </h2>
+                                </td>
+                                <td>{{employee.id}}</td>
+                                <td>{{employee.username}}</td>
+                                <td style="width: 200px; ">{{employee.password}}</td>
+                                <td>{{employee.email}}</td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a ng-click="toggleAccountStatus(employee)"
+                                            class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#">
+                                            <i class="fa fa-dot-circle-o"
+                                                ng-class="{'text-success': employee.status, 'text-danger': !employee.status}"></i>
+                                            {{employee.status? "Đang Hoạt Động" : "Không Hoạt Động"}}
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td class="text-right">
+                                    <div class="dropdown dropdown-action">
+                                        <!-- <button class="btn">
+                                                              <a ng-click="selectEmployee(employee)" class="dropdown-item" href="#" data-toggle="modal"
+                                                                data-target="#edit_Staff"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                            </button> -->
+                                        <div class="text-right">
+                                            <button ng-click="selectEmployee(employee)" href="#" type="button"
+                                                data-toggle="modal" data-target="#edit_Staff" class="btn btn-primary">
+                                                Chi tiết
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+
+    <!-- Add Staff Modal -->
+    <div id="add_Staff" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">THÊM NHÂN VIÊN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="profile-img-wrap edit-img">
+                                    <div>
+                                        <img id="add_staff_image" class="inline-block"
+                                            src="assets/img/profiles/avatar-02.jpg" alt="user" />
+                                    </div>
+                                    <div class="fileupload btn">
+                                        <span class="btn-text">Tải lên</span>
+                                        <input file-change="handleFileChange" class="upload" type="file" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">ID
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input ng-model="employeeForm.id" class="form-control" readonly type="text" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Họ tên
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input ng-model="employeeForm.fullName" class="form-control" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Tên người dùng
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input ng-model="employeeForm.username" class="form-control" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Mật khẩu</label>
+                                    <input ng-model="employeeForm.password" class="form-control" type="password" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Xác nhận mật khẩu</label>
+                                    <input ng-model="employeeForm.rePassword" class="form-control" type="password" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Email
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input ng-model="employeeForm.email" class="form-control" type="email" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit-section">
+                            <button ng-click="submitAdd()" class="btn btn-primary submit-btn">
+                                THÊM MỚI
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Staff Modal -->
+
+    <!-- Edit Staff Modal -->
+    <div id="edit_Staff" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">CHỈNH SỬA NHÂN VIÊN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="profile-img-wrap edit-img">
+                                    <img id="update_staff_image" class="inline-block"
+                                        src="assets/img/profiles/avatar-02.jpg" alt="user" />
+                                    <div class="fileupload btn">
+                                        <span class="btn-text">Sửa</span>
+                                        <input file-change="handleUpdateImage" class="upload" type="file" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">ID
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input ng-model="employeeForm.id" class="form-control" readonly type="text" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Họ tên
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input ng-model="employeeForm.fullName" class="form-control" type="text" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Tên người dùng
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input ng-model="employeeForm.username" class="form-control" type="text" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Mật khẩu</label>
+                                    <input ng-model="employeeForm.password" class="form-control" type="password" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Xác nhận mật khẩu</label>
+                                    <input ng-model="employeeForm.rePassword" class="form-control" type="password" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-form-label">Email
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input ng-model="employeeForm.email" class="form-control" type="email" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit-section">
+                            <button ng-click="submitEdit()" class="btn btn-primary submit-btn">
+                                LƯU
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Staff Modal -->
+</div>
+<!-- /Page Wrapper -->

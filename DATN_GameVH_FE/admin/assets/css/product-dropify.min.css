@@ -1,0 +1,36 @@
+/* CSS để điều chỉnh kích thước của vùng chứa dropify */
+
+.productIMG {
+    width: 400px;
+    /* Thay đổi giá trị theo ý muốn */
+    height: 245px;
+    /* Thay đổi giá trị theo ý muốn */
+}
+
+
+/* CSS để điều chỉnh kích thước của hộp chọn tệp */
+
+.productIMG .dropify-wrapper {
+    width: 100%;
+    /* Chỉnh sửa theo ý muốn */
+    height: 100%;
+    /* Chỉnh sửa theo ý muốn */
+}
+
+
+/* CSS để điều chỉnh kích thước của hộp xem trước */
+
+.productIMG .dropify-preview {
+    width: 100%;
+    /* Chỉnh sửa theo ý muốn */
+    height: 100%;
+    /* Chỉnh sửa theo ý muốn */
+}
+
+
+/* CSS để điều chỉnh kích thước của nút xóa */
+
+.productIMG .dropify-infos {
+    width: 100%;
+    /* Chỉnh sửa theo ý muốn */
+}

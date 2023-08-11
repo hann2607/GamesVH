@@ -1,0 +1,201 @@
+<div class="wrap-container" ng-controller="FeedbackWebsiteController">
+	<div class="image-bg-body"></div>
+	<main class="main">
+		<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Trang Chủ</a></li>
+
+					<li class="breadcrumb-item active" aria-current="page">Liên hệ chúng tôi</li>
+				</ol>
+			</div>
+			<!-- End .container -->
+		</nav>
+		<!-- End .breadcrumb-nav -->
+		<div class="container">
+			<div class="page-header page-header-big text-center"
+				style="background-image: url('https://scranegames.tv/wp-content/uploads/2018/06/h1-streambox-v2-img-5.jpg')">
+				<h1 class="page-title text-white">
+					Liên Hệ với Chúng Tôi<span class="text-white">giữ liên lạc với chúng tôi</span>
+				</h1>
+			</div>
+			<!-- End .page-header -->
+		</div>
+		<!-- End .container -->
+
+		<div class="page-content pb-0">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 mb-2 mb-lg-0">
+						<h2 class="title mb-1">Thông Tin Liên Lạc</h2>
+						<!-- End .title mb-2 -->
+						<p class="mb-3">Liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi hoặc thắc mắc nào. Thông tin của
+							chúng tôi được cung cấp dưới đây để thuận tiện cho bạn.</p>
+						<div class="row">
+							<div class="col-sm-7">
+								<div class="contact-info">
+									<h3>The Office</h3>
+
+									<ul class="contact-list">
+										<li><i class="icon-map-marker"></i>Quận 12, Thành Phố Hồ Chí Minh, Việt Nam</li>
+										<li><i class="icon-phone"></i> <a href="tel:#">(+84) 1234 567 89</a></li>
+										<li><i class="icon-envelope"></i> <a href="mailto:#">sevenbee@gmail.com</a>
+										</li>
+									</ul>
+									<!-- End .contact-list -->
+								</div>
+								<!-- End .contact-info -->
+							</div>
+							<!-- End .col-sm-7 -->
+
+							<div class="col-sm-5">
+								<div class="contact-info">
+									<h3>Văn Phòng</h3>
+
+									<ul class="contact-list">
+										<li><i class="icon-clock-o"></i> <span class="text-dark">Thứ hai- Thứ bảy</span>
+											<br>11:00-19:00
+										</li>
+										<li><i class="icon-calendar"></i> <span class="text-dark">Chủ Nhật</span>
+											<br>11:00-6:00
+										</li>
+									</ul>
+									<!-- End .contact-list -->
+								</div>
+								<!-- End .contact-info -->
+							</div>
+							<!-- End .col-sm-5 -->
+						</div>
+						<!-- End .row -->
+					</div>
+					<!-- End .col-lg-6 -->
+					<div class="col-lg-6">
+						<h2 class="title mb-1">Có bất kỳ câu hỏi nào</h2>
+						<!-- End .title mb-2 -->
+						<p class="mb-2">Sử dụng mẫu dưới đây để liên lạc với
+							đội ngũ bán hàng</p>
+
+						<form novalidate name="feedback" ng-submit="feedbackSubmit()" class="contact-form mb-3">
+							<label for="cmessage" class="sr-only">Nội dung</label>
+							<textarea class="form-control" cols="30" rows="6" id="cmessage" placeholder="Nội dung *"
+								ng-model="content" maxlength="255"
+								ng-class="{'is-invalid': (feedback.content.$invalid && feedback.content.$touched) || (feedback.$submitted && feedback.content.$invalid) || (feedback.$submitted && isValidContent)}"
+								name="content" ng-required="true"></textarea>
+							<div class="mb-1 text-danger font-weight-bold">
+								<div
+									ng-show="(feedback.content.$error.required && feedback.content.$touched) || (feedback.$submitted && feedback.content.$invalid)">
+									Nội dung không được để trống!
+								</div>
+							</div>
+							<!-- End Error content-->
+
+							<button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
+								<span>GỬI</span> <i class="icon-long-arrow-right"></i>
+							</button>
+						</form>
+						<!-- End .contact-form -->
+					</div>
+					<!-- End .col-lg-6 -->
+				</div>
+				<!-- End .row -->
+
+				<hr class="mt-4 mb-5">
+
+				<div class="stores mb-4 mb-lg-5">
+					<h2 class="title text-center mb-3">Cửa Hàng Của Chúng Tôi</h2>
+					<!-- End .title text-center mb-2 -->
+
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="store">
+								<div class="row">
+									<div class="col-sm-5 col-xl-6">
+										<figure class="store-media mb-2 mb-lg-0">
+											<img src="assets/images/stores/img-1.jpg" alt="image">
+										</figure>
+										<!-- End .store-media -->
+									</div>
+									<!-- End .col-xl-6 -->
+									<div class="col-sm-7 col-xl-6">
+										<div class="store-content">
+											<h3 class="store-title">SevenBee Store</h3>
+											<!-- End .store-title -->
+											<address>Quận 12, Thành Phố Hồ Chí Minh, Việt Nam</address>
+											<div>
+												<a href="tel:#">(+84) 1234 567 89</a>
+											</div>
+
+											<h4 class="store-subtitle">Giờ Cửa Hàng:</h4>
+											<!-- End .store-subtitle -->
+											<div>Thứ hai - Thứ bảy (10:00 - 19:00)</div>
+											<div>Chủ nhật (9:00 - 14:00)</div>
+
+											<a href="#" class="btn btn-link" target="_blank"><span>Xem
+													Map</span><i class="icon-long-arrow-right"></i></a>
+										</div>
+										<!-- End .store-content -->
+									</div>
+									<!-- End .col-xl-6 -->
+								</div>
+								<!-- End .row -->
+							</div>
+							<!-- End .store -->
+						</div>
+						<!-- End .col-lg-6 -->
+
+						<div class="col-lg-6">
+							<div class="store">
+								<div class="row">
+									<div class="col-sm-5 col-xl-6">
+										<figure class="store-media mb-2 mb-lg-0">
+											<img src="assets/images/stores/img-2.jpg" alt="image">
+										</figure>
+										<!-- End .store-media -->
+									</div>
+									<!-- End .col-xl-6 -->
+
+									<div class="col-sm-7 col-xl-6">
+										<div class="store-content">
+											<h3 class="store-title">SevenBee Store</h3>
+											<!-- End .store-title -->
+											<address>Quận 9, Thành Phố Hồ Chí Minh, Việt Nam</address>
+											<div>
+												<a href="tel:#">(+84) 1234 567 89</a>
+											</div>
+
+											<h4 class="store-subtitle">Giờ Cửa Hàng:</h4>
+											<!-- End .store-subtitle -->
+											<div>Thứ hai - Thứ bảy (10:00 - 19:00)</div>
+											<div>Chủ nhật (9:00 - 14:00)</div>
+
+
+											<a href="#" class="btn btn-link" target="_blank"><span>Xem
+													Map</span><i class="icon-long-arrow-right"></i></a>
+										</div>
+										<!-- End .store-content -->
+									</div>
+									<!-- End .col-xl-6 -->
+								</div>
+								<!-- End .row -->
+							</div>
+							<!-- End .store -->
+						</div>
+						<!-- End .col-lg-6 -->
+					</div>
+					<!-- End .row -->
+				</div>
+				<!-- End .stores -->
+			</div>
+			<!-- End .container -->
+			<div id="map">
+				<iframe
+					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.443854620167!2d106.62472891530277!3d10.853806360727365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b684ce076f3%3A0x4da1cf0078f423fa!2zRlBUIFBvbHl0ZWNobmljIC0gVG_DoCBUIC0gVHLGsOG7nW5nIGPhu6dhIHTDtGk!5e0!3m2!1svi!2s!4v1679258990413!5m2!1svi!2s"
+					width="1290" height="600" style="border: 0;" allowfullscreen="" loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"></iframe>
+			</div>
+			<!-- End #map -->
+		</div>
+		<!-- End .page-content -->
+		<div id="toast"></div>
+	</main>
+</div>

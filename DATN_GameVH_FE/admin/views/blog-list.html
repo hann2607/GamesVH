@@ -1,0 +1,272 @@
+<!-- Header -->
+<div ng-include="'/templates/header.html'"></div>
+<!-- /Header -->
+
+<!-- Sidebar -->
+<div ng-include="'/templates/sidebar.html'"></div>
+<!-- /Sidebar -->
+
+
+<!-- Page Wrapper -->
+<div class="page-wrapper" ng-controller="BlogController">
+
+	<!-- Page Content -->
+	<div class="content container-fluid">
+
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row align-items-center">
+				<div class="col">
+					<h3 class="page-title">DANH SÁCH BÀI VIẾT</h3>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Trang Chủ</a></li>
+						<li class="breadcrumb-item active">Danh Sách Bài Viết</li>
+					</ul>
+				</div>
+				<div class="col-auto float-right ml-auto">
+					<a href="#" class="btn add-btn" ng-click="newBlog()" data-toggle="modal" data-target="#add_Blog"><i
+							class="fa fa-plus"></i> Thêm Bài Viết</a>
+
+				</div>
+			</div>
+		</div>
+		<!-- /Page Header -->
+
+		<!-- Search Filter -->
+		<div class="row filter-row">
+			<div class="col-sm-6 col-md-3">
+				<div class="form-group form-focus">
+					<input type="text" class="form-control floating" id="searchTitle"
+						ng-keydown="searchWithEnter($event)">
+					<label class="focus-label">Tên Bài Viết</label>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="form-group form-focus">
+					<input type="text" class="form-control floating" id="searchUsername"
+						ng-keydown="searchWithEnter($event)">
+					<label class="focus-label">Tên Người Dùng</label>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-2">
+				<div class="form-group form-focus cal-icon">
+					<input type="text" class="form-control floating datetimepicker" id="searchCreateDate"
+						ng-keydown="searchWithEnter($event)">
+					<label class="focus-label">Ngày Tạo</label>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-2">
+				<a href="#" class="btn btn-success btn-block" ng-click="searchBlog()"
+					ng-keydown="searchWithEnter($event)"> Tìm Kiếm </a>
+			</div>
+			<div class="col-sm-6 col-md-2">
+				<a href="#" class="btn btn-success btn-block" ng-click="refreshSearch()"> Làm Mới </a>
+			</div>
+		</div>
+		<!-- /Search Filter -->
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table table-striped custom-table datatable" id="tableBlog">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Tên Bài Viết</th>
+								<th>Người dùng đã tạo</th>
+								<th>Ngày Tạo</th>
+								<th>Trạng thái</th>
+								<th>Bình Luận</th>
+								<th class="text-right no-sort">Hoạt Động</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Page Content -->
+
+	<!-- Add Blog Modal -->
+	<div id="add_Blog" class="modal custom-modal fade" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">{{submitButtonText}} Bài Viết</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form name="BlogForm" novalidate ng-submit="addOrUpdate()">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label class="col-form-label">Tên Bài Viết <span
+											class="text-danger">*</span></label>
+									<input class="form-control" name="blogTitle" ng-model="blogData.title" type="text"
+										required>
+								</div>
+								<div class="mb-1 text-danger font-weight-bold">
+									<div
+										ng-show="(BlogForm.blogTitle.$error.required && BlogForm.blogTitle.$touched) || (BlogForm.$submitted && BlogForm.blogTitle.$invalid)">
+										Tiêu đề không được để trống!
+									</div>
+								</div>
+								<!-- End Error Username-->
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="col-form-label">Trạng Thái <span class="text-danger">*</span></label>
+									<select class="form-control" id="blogData-status" ng-model="blogData.status"
+										name="blogStatus" required>
+										<option value="" disabled>Chọn trạng thái</option>
+										<option value="1" ng-selected="blogData.status === 1">Công Khai</option>
+										<option value="0" ng-selected="blogData.status === 0">Riêng Tư</option>
+									</select>
+								</div>
+								<div class="mb-1 text-danger font-weight-bold">
+									<div
+										ng-show="(BlogForm.blogStatus.$error.required && BlogForm.blogStatus.$touched) || (BlogForm.$submitted && BlogForm.blogStatus.$invalid)">
+										Vui lòng chọn trạng thái!
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-form-label">Ngày Tạo</label>
+									<input class="form-control" type="text" ng-model="formattedDate" readonly>
+								</div>
+								<div class="form-group">
+									<label class="col-form-label">Người Dùng Tạo</label>
+									<input class="form-control" type="text" ng-model="blogData.username" readonly>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<h4 class="text-center">Ảnh áp phích</h4>
+								<div class="d-flex justify-content-center">
+									<div class="blogIMG" ng-show="editImg">
+										<input type="file" class="dropify" id="BlogIMG" accept="image/*"
+											ng-model="blogData.image" data-default-file="">
+									</div>
+									<div class="imageView" ng-hide="editImg" ng-mouseenter="showEditImage()"
+										ng-mouseleave="hideEditImage()">
+										<div class="image-container" style="position: relative; display: inline-block;">
+											<img id="imageView" class="rounded img-thumbnail"
+												src="https://drive.google.com/uc?id={{blogData.image}}" alt="Image"
+												style="max-width: 400px; max-height: 245px;">
+											<a ng-click="editImage()" class="btn btn-primary mt-3 submit-btn text-white"
+												ng-show="isHovered"
+												style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Thay
+												đổi</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<script>
+								$(document).ready(function () {
+									// Cấu hình ngôn ngữ mặc định cho Dropify
+									$('#BlogIMG').dropify({
+										messages: {
+											'default': 'Tải lên hình ảnh có kich thước 1280x720',
+											'replace': 'Thay thế ảnh',
+											'remove': 'Xóa ảnh',
+											'error': 'Đã xảy ra lỗi khi tải lên.'
+										}
+									});
+								});
+							</script>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="summernote" id="blogContent" ng-blur="checkAndSetBlogContent()"
+									ng-model="blogData.content"></div>
+								<div class="mb-1 text-danger font-weight-bold" ng-show="showBlogContentError">
+									Vui lòng nhập nội dung blog!
+								</div>
+							</div>
+						</div>
+
+						<div class="submit-section">
+							<button class="btn btn-primary submit-btn">{{submitButtonText}}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Add Blog Modal -->
+	<!-- Toast message -->
+	<div id="toast"></div>
+	<!-- Toast message -->
+
+	<!-- Comment Product Modal -->
+	<div id="comment_Blog" class="modal custom-modal fade">
+		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Bình luận - {{titleModelComment}}</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="col-md-12">
+							<div class="table-responsive">
+								<table id="tableComment" class="table table-striped custom-table datatable">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Tên Tài Khoản</th>
+											<th>Bình Luận</th>
+											<th>Ngày Tạo</th>
+											<th>Trạng Thái</th>
+											<th class="text-right no-sort">Hoạt Động</th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Comment Product Modal -->
+
+	<!-- Delete Blog Modal -->
+	<div id="delete_Blog" class="modal custom-modal fade" role="dialog">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="form-header">
+						<h3>Xóa bài viết</h3>
+						<p>Bạn có chắc chắn muốn xóa?</p>
+					</div>
+					<div class="modal-btn delete-action">
+						<div class="row">
+							<div class="col-6">
+								<a href="javascript:void(0);" ng-click="deleteBlog()"
+									class="btn btn-primary continue-btn">Xóa</a>
+							</div>
+							<div class="col-6">
+								<a href="javascript:void(0);" data-dismiss="modal"
+									class="btn btn-primary cancel-btn">Hủy</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Delete Blog Modal -->
+</div>
+<!-- /Page Wrapper -->
