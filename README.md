@@ -39,9 +39,7 @@
 <a name = "homepage"></a>
 <h1>2. HOMEPAGE<h1>
 <p align="center">
-  ![image](https://github.com/hann2607/GamesVH/assets/117273434/36bf3ad7-17ec-424f-b70d-5b6c526b9031)
-
-  <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259982148-36bf3ad7-17ec-424f-b70d-5b6c526b9031.png">
+  <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/117273434/259982346-151069fe-4ba0-455b-a007-d339239d85a0.png">
 </p>
 
 <a name = "account"></a>
